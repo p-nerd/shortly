@@ -8,11 +8,21 @@ const Blank = lazy(() => import("@pages/protected/Blank"));
 const Team = lazy(() => import("@pages/protected/Team"));
 const Bills = lazy(() => import("@pages/protected/Bills"));
 const ProfileSettings = lazy(() => import("@pages/protected/ProfileSettings"));
+const CreateLink = lazy(() => import("@pages/protected/CreateLink"));
+const CreateQRCode = lazy(() => import("@pages/protected/CreateQRCode"));
 
 const routes = [
     {
         path: "/dashboard", // the url
         component: Dashboard, // view rendered
+    },
+    {
+        path: "/links/create",
+        component: CreateLink,
+    },
+    {
+        path: "/qr-codes/create",
+        component: CreateQRCode,
     },
     {
         path: "/settings-team",

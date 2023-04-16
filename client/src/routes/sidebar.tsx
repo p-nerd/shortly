@@ -1,20 +1,18 @@
 /** Icons are imported separately to reduce build time */
 import ArrowRightOnRectangleIcon from "@heroicons/react/24/outline/ArrowRightOnRectangleIcon";
-import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
-import ChartBarIcon from "@heroicons/react/24/outline/ChartBarIcon";
-import CodeBracketSquareIcon from "@heroicons/react/24/outline/CodeBracketSquareIcon";
 import Cog6ToothIcon from "@heroicons/react/24/outline/Cog6ToothIcon";
 import DocumentDuplicateIcon from "@heroicons/react/24/outline/DocumentDuplicateIcon";
 import DocumentIcon from "@heroicons/react/24/outline/DocumentIcon";
-import DocumentTextIcon from "@heroicons/react/24/outline/DocumentTextIcon";
 import ExclamationTriangleIcon from "@heroicons/react/24/outline/ExclamationTriangleIcon";
-import InboxArrowDownIcon from "@heroicons/react/24/outline/InboxArrowDownIcon";
 import KeyIcon from "@heroicons/react/24/outline/KeyIcon";
 import Squares2X2Icon from "@heroicons/react/24/outline/Squares2X2Icon";
-import TableCellsIcon from "@heroicons/react/24/outline/TableCellsIcon";
 import UserIcon from "@heroicons/react/24/outline/UserIcon";
 import UsersIcon from "@heroicons/react/24/outline/UsersIcon";
 import WalletIcon from "@heroicons/react/24/outline/WalletIcon";
+import LinkIcon from "@heroicons/react/24/outline/LinkIcon";
+import PlusIcon from "@heroicons/react/24/outline/PlusIcon";
+import QueueListIcon from "@heroicons/react/24/outline/QueueListIcon";
+import QrCodeIcon from "@heroicons/react/24/outline/QrCodeIcon";
 import { ReactNode } from "react";
 
 const iconClasses = `h-6 w-6`;
@@ -31,6 +29,40 @@ const routes = [
         path: "/app/dashboard",
         icon: <Squares2X2Icon className={iconClasses} />,
         name: "Dashboard",
+    },
+    {
+        path: "",
+        icon: <LinkIcon className={`${iconClasses} inline`} />,
+        name: "Links",
+        submenu: [
+            {
+                path: "/app/links/create",
+                icon: <PlusIcon className={submenuIconClasses} />,
+                name: "Create Link",
+            },
+            {
+                path: "/app/links",
+                icon: <QueueListIcon className={submenuIconClasses} />,
+                name: "Link List",
+            },
+        ],
+    },
+    {
+        path: "",
+        icon: <QrCodeIcon className={`${iconClasses} inline`} />,
+        name: "QR Code",
+        submenu: [
+            {
+                path: "/app/qr-codes/create",
+                icon: <PlusIcon className={submenuIconClasses} />,
+                name: "Create QR Code",
+            },
+            {
+                path: "/app/qr-codes",
+                icon: <QueueListIcon className={submenuIconClasses} />,
+                name: "QR Code List",
+            },
+        ],
     },
     {
         path: "", //no url needed as this has submenu

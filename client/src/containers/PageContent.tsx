@@ -1,7 +1,7 @@
 import { useAppSelector } from "@app/hooks";
 import { Suspense, lazy, useEffect, useRef } from "react";
 import { Route, Routes } from "react-router-dom";
-import routes from "@routes/index";
+import routes from "@routes/internal";
 import Header from "./Header";
 import SuspenseContent from "./SuspenseContent";
 

@@ -1,3 +1,3 @@
-# url_shortener
+# PNerdLy
 
 Full-stack url shortener SaaS application.
