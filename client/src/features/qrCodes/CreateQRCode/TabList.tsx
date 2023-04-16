@@ -11,7 +11,7 @@ const TabItem = ({
 }) => (
     <button
         onClick={onClick}
-        className={`rounded-full border-0  px-10 py-2  ${
+        className={`btn-outline btn-sm btn rounded-full border-0 px-10 py-2 ${
             isActive ? "bg-base-200 shadow" : ""
         }`}
     >
