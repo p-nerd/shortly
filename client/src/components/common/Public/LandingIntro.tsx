@@ -20,8 +20,7 @@ function LandingIntro() {
                         ></img>
                     </div>
 
-                    {/* Importing pointers component */}
-                    <p className="pt-10">Landing Intro Text</p>
+                    <p className="pt-5">Generate Shorten URLs</p>
                 </div>
             </div>
         </div>

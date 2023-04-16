@@ -1,14 +1,8 @@
-import { useAppDispatch } from "@app/hooks";
-import { setPageTitle } from "@features/layouts/headerSlice";
 import FaceFrownIcon from "@heroicons/react/24/solid/FaceFrownIcon";
-import { useEffect } from "react";
+import useSetPageTitle from "@hooks/useSetPageTitle";
 
 const InternalPage = () => {
-    const dispatch = useAppDispatch();
-
-    useEffect(() => {
-        dispatch(setPageTitle({ title: "" }));
-    }, []);
+    useSetPageTitle("");
 
     return (
         <div className="hero h-4/5 bg-base-200">

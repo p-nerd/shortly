@@ -1,8 +1,7 @@
 import checkAuth from "@app/auth";
 import initializeApp from "@app/init";
-import { lazy, useEffect } from "react";
+import { lazy } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import { themeChange } from "theme-change";
 
 // Importing pages
 const Layout = lazy(() => import("@components/layouts/Layout"));
@@ -17,11 +16,6 @@ initializeApp();
 const token = checkAuth();
 
 function App() {
-    useEffect(() => {
-        // 👆 daisy UI themes initialization
-        themeChange(false);
-    }, []);
-
     return (
         <BrowserRouter>
             <Routes>
@@ -35,10 +29,7 @@ function App() {
                 <Route
                     path="*"
                     element={
-                        <Navigate
-                            to={token ? "/app/dashboard" : "/login"}
-                            replace
-                        />
+                        <Navigate to={token ? "/app/dashboard" : "/login"} replace />
                     }
                 />
             </Routes>

@@ -41,7 +41,7 @@ const routes = [
                 name: "Create Link",
             },
             {
-                path: "/app/links",
+                path: "/app/links/list",
                 icon: <QueueListIcon className={submenuIconClasses} />,
                 name: "Link List",
             },
@@ -71,9 +71,7 @@ const routes = [
         submenu: [
             {
                 path: "/login",
-                icon: (
-                    <ArrowRightOnRectangleIcon className={submenuIconClasses} />
-                ),
+                icon: <ArrowRightOnRectangleIcon className={submenuIconClasses} />,
                 name: "Login",
             },
             {
@@ -93,9 +91,7 @@ const routes = [
             },
             {
                 path: "/app/404",
-                icon: (
-                    <ExclamationTriangleIcon className={submenuIconClasses} />
-                ),
+                icon: <ExclamationTriangleIcon className={submenuIconClasses} />,
                 name: "404",
             },
         ],
