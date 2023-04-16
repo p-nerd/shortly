@@ -11,7 +11,7 @@ const LeftSidebar = () => {
                 htmlFor="left-sidebar-drawer"
                 className="drawer-overlay"
             ></label>
-            <ul className="menu  w-80 bg-base-100 pt-2 text-base-content">
+            <ul className="menu w-60 bg-base-100 pt-2 text-base-content">
                 <li className="mb-2 text-xl font-semibold">
                     <Link to={"/app/dashboard"}>
                         <img

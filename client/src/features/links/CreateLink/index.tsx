@@ -1,7 +1,7 @@
 const CreateLinkComponent = () => {
     return (
-        <div className="flex flex-col justify-between gap-10 duration-300">
-            <div className="flex flex-col gap-5">
+        <div className="flex h-full flex-col justify-between gap-10 duration-300">
+            <div className="mb-10 flex h-full w-full flex-col gap-5">
                 <div className="flex w-full flex-col gap-1">
                     <label htmlFor="destination" className="label">
                         Destination
@@ -34,8 +34,6 @@ const CreateLinkComponent = () => {
                         Add UTMs to track web traffic in analytics tools
                     </label>
                 </div>
-            </div>
-            <div className="flex flex-col gap-5">
                 <h2 className="text-2xl font-bold">Ways to share</h2>
                 <div className="flex flex-col gap-2">
                     <h3 className="text-1xl font-semibold">Short link</h3>
@@ -101,7 +99,7 @@ const CreateLinkComponent = () => {
                     </div>
                 </div>
             </div>
-            <div className="sticky bottom-0 flex w-full justify-end gap-5 py-2 pr-2">
+            <div className="sticky bottom-0 flex justify-end gap-5 bg-base-200 py-2">
                 <button className="btn">Cancel</button>
                 <button className="btn-primary btn">Create</button>
             </div>

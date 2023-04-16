@@ -8,14 +8,12 @@ const CreateQRCodeComponent = () => {
     const [currentTab, setCurrentTab] = useState("content");
 
     return (
-        <div className="relative">
-            <Tab currentTab={currentTab} setCurrentTab={setCurrentTab} />
-            <div className="relative flex flex-col pt-20 md:flex-row">
-                <div className="w-3/5 p-4 pb-20 pt-12">
-                    {currentTab === "content" ? <Content /> : <Customize />}
-                </div>
+        <div className="relative h-full">
+            <div className="flex h-full gap-5">
+                {currentTab === "content" ? <Content /> : <Customize />}
                 <Preview />
             </div>
+            <Tab currentTab={currentTab} setCurrentTab={setCurrentTab} />
         </div>
     );
 };

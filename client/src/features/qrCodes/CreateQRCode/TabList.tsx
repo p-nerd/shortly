@@ -12,7 +12,7 @@ const TabItem = ({
     <button
         onClick={onClick}
         className={`rounded-full border-0  px-10 py-2  ${
-            isActive ? "bg-white shadow" : ""
+            isActive ? "bg-base-200 shadow" : ""
         }`}
     >
         {label}
@@ -27,7 +27,7 @@ const TabList = ({
     setCurrentTab: (_: string) => void;
 }) => {
     return (
-        <div className="rounded-full bg-slate-200 p-[2px] text-sm font-semibold text-slate-800">
+        <div className="rounded-full bg-base-300 p-[2px] text-sm font-semibold">
             <TabItem
                 onClick={() => setCurrentTab("content")}
                 label="Content"

@@ -6,25 +6,19 @@ type Props = {
 };
 
 const Tab = ({ currentTab, setCurrentTab }: Props) => {
-    const isSidebarOpen = true;
-
     return (
-        <div
-            className={`fixed left-0 top-[56px] z-30 my-auto h-20 w-full border-b bg-white p-5 ${
-                isSidebarOpen ? "md:pl-[260px]" : "md:pl-[90px]"
-            }`}
-        >
-            <div className="flex items-center justify-between">
+        <div className={`sticky bottom-0 my-auto flex w-full bg-base-200 py-5`}>
+            <div className="flex w-full justify-between">
                 <h2 className="text-xl font-bold">Create QR Code</h2>
                 <TabList
                     currentTab={currentTab}
                     setCurrentTab={setCurrentTab}
                 />
                 <div className="flex items-center gap-3">
-                    <button className="flex rounded px-4 py-[10px] text-center text-sm font-bold hover:bg-slate-200 ">
+                    <button className="flex rounded px-4 py-[10px] text-center text-sm font-bold hover:bg-base-100 ">
                         Cancel
                     </button>
-                    <button className="flex rounded bg-blue-600 px-4 py-[10px] text-center text-sm font-bold text-white ">
+                    <button className="flex rounded bg-primary px-4 py-[10px] text-center text-sm font-bold text-white ">
                         Create QR Code
                     </button>
                 </div>
