@@ -9,11 +9,9 @@ import "./index.css";
 const root = createRoot(document.getElementById("root") as HTMLElement);
 
 root.render(
-    // <StrictMode>
     <Suspense fallback={<SuspenseContent />}>
         <Provider store={store}>
             <App />
         </Provider>
     </Suspense>
-    // </StrictMode>
 );

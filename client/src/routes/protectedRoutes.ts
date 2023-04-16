@@ -5,7 +5,7 @@ const Page404 = lazy(() => import("@pages/protected/404"));
 const Blank = lazy(() => import("@pages/protected/Blank"));
 const Team = lazy(() => import("@pages/protected/settings/Team"));
 const Bills = lazy(() => import("@pages/protected/settings/Bills"));
-const ProfileSettings = lazy(() => import("@pages/protected/settings/Profile"));
+const Profile = lazy(() => import("@pages/protected/settings/Profile"));
 const CreateLink = lazy(() => import("@pages/protected/links/CreateLink"));
 const CreateQRCode = lazy(() => import("@pages/protected/qrCodes/CreateQRCode"));
 const LinkList = lazy(() => import("@pages/protected/links/LinkList"));
@@ -30,12 +30,12 @@ const protectedRoutes = [
         component: CreateQRCode,
     },
     {
-        path: "/settings/team",
-        component: Team,
+        path: "/settings/profile",
+        component: Profile,
     },
     {
-        path: "/settings/profile",
-        component: ProfileSettings,
+        path: "/settings/team",
+        component: Team,
     },
     {
         path: "/settings/billing",

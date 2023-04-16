@@ -3,6 +3,8 @@ import TitleCard from "@components/common/Cards/TitleCard";
 import InputText from "@components/common/Input/InputText";
 import TextAreaInput from "@components/common/Input/TextAreaInput";
 import ToggleInput from "@components/common/Input/ToggleInput";
+import DisplayName from "@components/pages/Profile/DisplayName";
+import EmailAddresses from "@components/pages/Profile/EmailAddresses";
 import { showNotification } from "@features/layouts/headerSlice";
 import useSetPageTitle from "@hooks/useSetPageTitle";
 
@@ -22,12 +24,11 @@ const Profile = () => {
 
     return (
         <TitleCard title="Profile Settings" topMargin="mt-2">
+            <div className="mb-10 space-y-10">
+                <DisplayName />
+                <EmailAddresses />
+            </div>
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-                <InputText
-                    labelTitle="Name"
-                    defaultValue="Alex"
-                    updateFormValue={updateFormValue}
-                />
                 <InputText
                     labelTitle="Email Id"
                     defaultValue="alex@dashwind.com"
