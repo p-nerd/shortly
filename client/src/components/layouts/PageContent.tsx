@@ -1,9 +1,9 @@
 import { useAppSelector } from "@app/hooks";
 import { Suspense, lazy, useEffect, useRef } from "react";
 import { Route, Routes } from "react-router-dom";
-import routes from "@routes/internal";
 import Header from "./Header";
 import SuspenseContent from "./SuspenseContent";
+import protectedRoutes from "@routes/protectedRoutes";
 
 const Page404 = lazy(() => import("@pages/protected/404"));
 
@@ -28,7 +28,7 @@ function PageContent() {
             >
                 <Suspense fallback={<SuspenseContent />}>
                     <Routes>
-                        {routes.map((route, key) => {
+                        {protectedRoutes.map((route, key) => {
                             return (
                                 <Route
                                     key={key}

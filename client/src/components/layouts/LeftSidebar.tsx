@@ -1,4 +1,4 @@
-import routes from "@routes/sidebar";
+import sidebarMenus from "@routes/sidebarMenus";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import SidebarSubmenu from "./SidebarSubmenu";
 
@@ -7,10 +7,7 @@ const LeftSidebar = () => {
 
     return (
         <div className="drawer-side ">
-            <label
-                htmlFor="left-sidebar-drawer"
-                className="drawer-overlay"
-            ></label>
+            <label htmlFor="left-sidebar-drawer" className="drawer-overlay"></label>
             <ul className="menu w-60 bg-base-100 pt-2 text-base-content">
                 <li className="mb-2 text-xl font-semibold">
                     <Link to={"/app/dashboard"}>
@@ -22,7 +19,7 @@ const LeftSidebar = () => {
                         PNerdLy
                     </Link>
                 </li>
-                {routes.map((route, k) => {
+                {sidebarMenus.map((route, k) => {
                     return (
                         <li className="" key={k}>
                             {route.submenu ? (

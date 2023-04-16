@@ -24,7 +24,7 @@ export type TSubmenu = {
     name: string;
 };
 
-const routes = [
+const sidebarMenus = [
     {
         path: "/app/dashboard",
         icon: <Squares2X2Icon className={iconClasses} />,
@@ -102,17 +102,17 @@ const routes = [
         name: "Settings", // name that appear in Sidebar
         submenu: [
             {
-                path: "/app/settings-profile", //url
+                path: "/app/settings/profile", //url
                 icon: <UserIcon className={submenuIconClasses} />, // icon component
                 name: "Profile", // name that appear in Sidebar
             },
             {
-                path: "/app/settings-billing",
+                path: "/app/settings/billing",
                 icon: <WalletIcon className={submenuIconClasses} />,
                 name: "Billing",
             },
             {
-                path: "/app/settings-team", // url
+                path: "/app/settings/team", // url
                 icon: <UsersIcon className={submenuIconClasses} />, // icon component
                 name: "Team Members", // name that appear in Sidebar
             },
@@ -120,4 +120,4 @@ const routes = [
     },
 ];
 
-export default routes;
+export default sidebarMenus;
