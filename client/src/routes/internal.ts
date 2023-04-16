@@ -5,11 +5,15 @@ import { lazy } from "react";
 const Dashboard = lazy(() => import("@pages/protected/Dashboard"));
 const Page404 = lazy(() => import("@pages/protected/404"));
 const Blank = lazy(() => import("@pages/protected/Blank"));
-const Team = lazy(() => import("@pages/protected/Team"));
-const Bills = lazy(() => import("@pages/protected/Bills"));
-const ProfileSettings = lazy(() => import("@pages/protected/ProfileSettings"));
-const CreateLink = lazy(() => import("@pages/protected/CreateLink"));
-const CreateQRCode = lazy(() => import("@pages/protected/CreateQRCode"));
+const Team = lazy(() => import("@pages/protected/settings/Team"));
+const Bills = lazy(() => import("@pages/protected/settings/Bills"));
+const ProfileSettings = lazy(
+    () => import("@pages/protected/settings/ProfileSettings")
+);
+const CreateLink = lazy(() => import("@pages/protected/links/CreateLink"));
+const CreateQRCode = lazy(
+    () => import("@pages/protected/qrCodes/CreateQRCode")
+);
 
 const routes = [
     {
@@ -25,15 +29,15 @@ const routes = [
         component: CreateQRCode,
     },
     {
-        path: "/settings-team",
+        path: "/settings/team",
         component: Team,
     },
     {
-        path: "/settings-profile",
+        path: "/settings/profile",
         component: ProfileSettings,
     },
     {
-        path: "/settings-billing",
+        path: "/settings/billing",
         component: Bills,
     },
     {

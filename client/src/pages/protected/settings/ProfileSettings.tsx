@@ -1,5 +1,5 @@
 import { useAppDispatch } from "@app/hooks";
-import Dashboard from "@components/pages/Dashboard";
+import ProfileSettings from "@components/pages/ProfileSettings";
 import { setPageTitle } from "@features/layouts/headerSlice";
 import { useEffect } from "react";
 
@@ -7,10 +7,10 @@ function InternalPage() {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        dispatch(setPageTitle({ title: "Create Link" }));
+        dispatch(setPageTitle({ title: "Settings" }));
     }, []);
 
-    return <Dashboard />;
+    return <ProfileSettings />;
 }
 
 export default InternalPage;

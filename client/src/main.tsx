@@ -1,5 +1,5 @@
 import store from "@app/store";
-import SuspenseContent from "@containers/SuspenseContent";
+import SuspenseContent from "@components/layouts/SuspenseContent";
 import { Suspense } from "react";
 import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";

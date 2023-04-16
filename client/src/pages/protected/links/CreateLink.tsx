@@ -1,16 +1,16 @@
 import { useAppDispatch } from "@app/hooks";
-import Dashboard from "@components/pages/Dashboard";
 import { setPageTitle } from "@features/layouts/headerSlice";
+import CreateLinkComponent from "@components/pages/CreateLink";
 import { useEffect } from "react";
 
-function InternalPage() {
+const CreateLink = () => {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
         dispatch(setPageTitle({ title: "Create Link" }));
     }, []);
 
-    return <Dashboard />;
-}
+    return <CreateLinkComponent />;
+};
 
-export default InternalPage;
+export default CreateLink;

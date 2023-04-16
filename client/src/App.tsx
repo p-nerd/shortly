@@ -5,10 +5,10 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { themeChange } from "theme-change";
 
 // Importing pages
-const Layout = lazy(() => import("@containers/Layout"));
-const Login = lazy(() => import("@pages/Login"));
-const ForgotPassword = lazy(() => import("@pages/ForgotPassword"));
-const Register = lazy(() => import("@pages/Register"));
+const Layout = lazy(() => import("@components/layouts/Layout"));
+const Login = lazy(() => import("@pages/public/Login"));
+const ForgotPassword = lazy(() => import("@pages/public/ForgotPassword"));
+const Register = lazy(() => import("@pages/public/Register"));
 
 // Initializing different libraries
 initializeApp();

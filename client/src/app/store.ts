@@ -1,6 +1,6 @@
-import headerSlice from "@features/common/headerSlice";
-import modalSlice from "@features/common/modalSlice";
-import rightDrawerSlice from "@features/common/rightDrawerSlice";
+import headerSlice from "@features/layouts/headerSlice";
+import modalSlice from "@features/layouts/modalSlice";
+import rightDrawerSlice from "@features/layouts/rightDrawerSlice";
 import { configureStore } from "@reduxjs/toolkit";
 
 const store = configureStore({
