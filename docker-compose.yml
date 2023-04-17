@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+
+  mongodb:
+    image: mongo
+    container_name: pnerdly_mongodb
+    restart: unless-stopped
+    ports:
+      - 27017:27017
+    volumes:
+      - ./data/mongodb:/data/db
+    networks:
+      - pnerdly_network
+
+  node:
+    build: ./server
+    container_name: pnerdly_node
+    restart: unless-stopped
+    ports:
+      - 4000:4000
+    volumes:
+      - ./server:/usr/src/app
+    depends_on:
+      - mongodb
+    networks:
+      - pnerdly_network
+
+  react:
+    build: ./client
+    container_name: pnerdly_react
+    restart: unless-stopped
+    ports:
+      - 3000:3000
+    volumes:
+      - ./client/usr/src/app
+    depends_on:
+      - node
+    networks:
+      - pnerdly_network
+
+networks:
+  pnerdly_network:
+    driver: bridge
