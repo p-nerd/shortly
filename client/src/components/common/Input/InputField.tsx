@@ -1,7 +1,7 @@
 type Props = {
-    label: string;
     value: any;
     setValue: (_: any) => void;
+    label?: string;
     placeholder?: string;
     type?: string;
     containerStyle?: string;
@@ -9,21 +9,25 @@ type Props = {
 };
 
 const InputField = ({
-    label,
     value,
-    type,
-    placeholder,
     setValue,
+    type,
+    label,
+    placeholder,
     containerStyle,
     labelStyle,
 }: Props) => {
     return (
         <div className={`${containerStyle} form-control w-full `}>
-            <label className="label">
-                <span className={`label-text text-lg text-base-content ${labelStyle}`}>
-                    {label}
-                </span>
-            </label>
+            {label && (
+                <label className="label">
+                    <span
+                        className={`label-text text-base text-base-content ${labelStyle}`}
+                    >
+                        {label}
+                    </span>
+                </label>
+            )}
             <input
                 type={type}
                 value={value}

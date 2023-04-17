@@ -1,14 +1,14 @@
-import { ReactNode } from "react";
-
 type Props = {
-    styleClass: string;
-    children: ReactNode;
+    message: string;
+    styleClass?: string;
 };
 
-const ErrorText = ({ styleClass, children }: Props) => {
-    return (
-        <p className={`text-center  text-error ${styleClass}`}>{children}</p>
-    );
+const ErrorText = ({ styleClass, message }: Props) => {
+    return <p className={`text-error ${styleClass}`}>{message}</p>;
+};
+
+ErrorText.defaultProps = {
+    styleClass: "",
 };
 
 export default ErrorText;
