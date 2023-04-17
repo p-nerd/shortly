@@ -106,16 +106,6 @@ const sidebarMenus = [
                 icon: <UserIcon className={submenuIconClasses} />, // icon component
                 name: "Profile", // name that appear in Sidebar
             },
-            {
-                path: "/app/settings/billing",
-                icon: <WalletIcon className={submenuIconClasses} />,
-                name: "Billing",
-            },
-            {
-                path: "/app/settings/team", // url
-                icon: <UsersIcon className={submenuIconClasses} />, // icon component
-                name: "Team Members", // name that appear in Sidebar
-            },
         ],
     },
 ];
