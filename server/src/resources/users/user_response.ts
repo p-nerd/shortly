@@ -1,17 +1,29 @@
-import { IUser } from "./user_model";
+import { IUser, OtherEmail } from "./user_model";
 
 interface IUserResponse {
     _id: string;
+    createdAt: Date;
+    updatedAt: Date;
     name: string;
     email: string;
-    createdAt: string;
-    updatedAt: string;
+    isVerified: boolean;
+    primaryEmail: string;
+    lastLogin: Date;
+    token: string;
+    othersEmails?: OtherEmail[];
+    mobileNumber?: string;
 }
 
-export const userResponse = (user: IUser): IUserResponse => ({
+export const loginResponse = (user: IUser, token: string): IUserResponse => ({
     _id: user._id.toString(),
-    name: user.name,
     email: user.email,
-    createdAt: user.createdAt?.toString(),
-    updatedAt: user.updatedAt?.toString(),
+    isVerified: user.isVerified,
+    primaryEmail: user.primaryEmail,
+    othersEmails: user.otherEmails?.length ? user.otherEmails : undefined,
+    name: user.name,
+    mobileNumber: user.mobileNumber,
+    lastLogin: user.lastLogin,
+    createdAt: user.createdAt,
+    updatedAt: user.updatedAt,
+    token: token,
 });

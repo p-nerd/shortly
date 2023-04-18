@@ -25,6 +25,7 @@ services:
       - mongodb
     networks:
       - pnerdly_network
+    command: yarn dev
 
   react:
     build: ./client
@@ -33,11 +34,12 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - ./client/usr/src/app
+      - ./client:/usr/src/app
     depends_on:
       - node
     networks:
       - pnerdly_network
+    command: yarn dev
 
 networks:
   pnerdly_network:

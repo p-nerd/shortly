@@ -1,3 +1,4 @@
+import "module-alias/register";
 import app from "./app";
 import { PORT } from "./core/env";
 import log from "./core/log";
