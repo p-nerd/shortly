@@ -1,0 +1,5 @@
+module.exports = {
+    tabWidth: 4,
+    arrowParens: "avoid",
+    printWidth: 125,
+};
