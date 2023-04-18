@@ -1,22 +1,17 @@
+import httpStatus from "http-status";
 import jwt from "jsonwebtoken";
 import moment, { Moment } from "moment";
 import mongoose from "mongoose";
-import httpStatus from "http-status";
 import config from "../../config/config";
-import Token from "./token.model";
-import ApiError from "../errors/ApiError";
-import tokenTypes from "./token.types";
-import { AccessAndRefreshTokens, ITokenDoc } from "./token.interfaces";
-import { IUserDoc } from "../../resources/user/user.interfaces";
 import { userService } from "../../resources/user";
+import { IUserDoc } from "../../resources/user/user.interfaces";
+import ApiError from "../errors/ApiError";
+import { AccessAndRefreshTokens, ITokenDoc } from "./token.interfaces";
+import Token from "./token.model";
+import tokenTypes from "./token.types";
 
 /**
  * Generate token
- * @param {mongoose.Types.ObjectId} userId
- * @param {Moment} expires
- * @param {string} type
- * @param {string} [secret]
- * @returns {string}
  */
 export const generateToken = (
     userId: mongoose.Types.ObjectId,
@@ -35,12 +30,6 @@ export const generateToken = (
 
 /**
  * Save a token
- * @param {string} token
- * @param {mongoose.Types.ObjectId} userId
- * @param {Moment} expires
- * @param {string} type
- * @param {boolean} [blacklisted]
- * @returns {Promise<ITokenDoc>}
  */
 export const saveToken = async (
     token: string,
@@ -61,9 +50,6 @@ export const saveToken = async (
 
 /**
  * Verify token and return token doc (or throw an error if it is not valid)
- * @param {string} token
- * @param {string} type
- * @returns {Promise<ITokenDoc>}
  */
 export const verifyToken = async (token: string, type: string): Promise<ITokenDoc> => {
     const payload = jwt.verify(token, config.jwt.secret);
@@ -84,8 +70,6 @@ export const verifyToken = async (token: string, type: string): Promise<ITokenDo
 
 /**
  * Generate auth tokens
- * @param {IUserDoc} user
- * @returns {Promise<AccessAndRefreshTokens>}
  */
 export const generateAuthTokens = async (user: IUserDoc): Promise<AccessAndRefreshTokens> => {
     const accessTokenExpires = moment().add(config.jwt.accessExpirationMinutes, "minutes");
@@ -109,8 +93,6 @@ export const generateAuthTokens = async (user: IUserDoc): Promise<AccessAndRefre
 
 /**
  * Generate reset password token
- * @param {string} email
- * @returns {Promise<string>}
  */
 export const generateResetPasswordToken = async (email: string): Promise<string> => {
     const user = await userService.getUserByEmail(email);
@@ -125,8 +107,6 @@ export const generateResetPasswordToken = async (email: string): Promise<string>
 
 /**
  * Generate verify email token
- * @param {IUserDoc} user
- * @returns {Promise<string>}
  */
 export const generateVerifyEmailToken = async (user: IUserDoc): Promise<string> => {
     const expires = moment().add(config.jwt.verifyEmailExpirationMinutes, "minutes");

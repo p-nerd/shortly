@@ -16,11 +16,6 @@ if (config.env !== "test") {
 
 /**
  * Send an email
- * @param {string} to
- * @param {string} subject
- * @param {string} text
- * @param {string} html
- * @returns {Promise<void>}
  */
 export const sendEmail = async (to: string, subject: string, text: string, html: string): Promise<void> => {
     const msg: Message = {
@@ -35,9 +30,6 @@ export const sendEmail = async (to: string, subject: string, text: string, html:
 
 /**
  * Send reset password email
- * @param {string} to
- * @param {string} token
- * @returns {Promise<void>}
  */
 export const sendResetPasswordEmail = async (to: string, token: string): Promise<void> => {
     const subject = "Reset password";
@@ -56,10 +48,6 @@ export const sendResetPasswordEmail = async (to: string, token: string): Promise
 
 /**
  * Send verification email
- * @param {string} to
- * @param {string} token
- * @param {string} name
- * @returns {Promise<void>}
  */
 export const sendVerificationEmail = async (to: string, token: string, name: string): Promise<void> => {
     const subject = "Email Verification";
@@ -76,10 +64,6 @@ export const sendVerificationEmail = async (to: string, token: string, name: str
 
 /**
  * Send email verification after registration
- * @param {string} to
- * @param {string} token
- * @param {string} name
- * @returns {Promise<void>}
  */
 export const sendSuccessfulRegistration = async (to: string, token: string, name: string): Promise<void> => {
     const subject = "Email Verification";
@@ -102,9 +86,6 @@ export const sendSuccessfulRegistration = async (to: string, token: string, name
 
 /**
  * Send email verification after registration
- * @param {string} to
- * @param {string} name
- * @returns {Promise<void>}
  */
 export const sendAccountCreated = async (to: string, name: string): Promise<void> => {
     const subject = "Account Created Successfully";

@@ -7,8 +7,6 @@ import User from "./user.model";
 
 /**
  * Create a user
- * @param {NewCreatedUser} userBody
- * @returns {Promise<IUserDoc>}
  */
 export const createUser = async (userBody: NewCreatedUser): Promise<IUserDoc> => {
     if (await User.isEmailTaken(userBody.email)) {
@@ -19,8 +17,6 @@ export const createUser = async (userBody: NewCreatedUser): Promise<IUserDoc> =>
 
 /**
  * Register a user
- * @param {NewRegisteredUser} userBody
- * @returns {Promise<IUserDoc>}
  */
 export const registerUser = async (userBody: NewRegisteredUser): Promise<IUserDoc> => {
     if (await User.isEmailTaken(userBody.email)) {
