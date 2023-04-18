@@ -1,6 +1,6 @@
 import { IUser, OtherEmail } from "./user_model";
 
-interface IUserResponse {
+interface ILoginResponse {
     _id: string;
     createdAt: Date;
     updatedAt: Date;
@@ -14,7 +14,7 @@ interface IUserResponse {
     mobileNumber?: string;
 }
 
-export const loginResponse = (user: IUser, token: string): IUserResponse => ({
+export const loginResponse = (user: IUser, token: string): ILoginResponse => ({
     _id: user._id.toString(),
     email: user.email,
     isVerified: user.isVerified,

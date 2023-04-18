@@ -21,8 +21,20 @@ const save = async (data: TUserSave): Promise<IUser> => {
     }
 };
 
+const getByEmail = async (email: string): Promise<IUser> => {
+    try {
+        const user = await User.findOne({ email });
+        if (!user) throw 404;
+        return user;
+    } catch (e: any) {
+        if (e === 404) throw e;
+        throw 500;
+    }
+};
+
 const userRepository = {
     save,
+    getByEmail,
 };
 
 export default userRepository;

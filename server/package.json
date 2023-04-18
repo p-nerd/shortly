@@ -4,7 +4,8 @@
     "scripts": {
         "dev": "ts-node-dev --respawn --transpile-only src/main.ts",
         "build": "rm -rf dist && tsc",
-        "start": "node dist/main.js"
+        "start": "node dist/main.js",
+        "test": ""
     },
     "dependencies": {
         "bcrypt": "^5.1.0",

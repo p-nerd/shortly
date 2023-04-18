@@ -10,3 +10,7 @@ const response = (res: Response, status: number, message: string, data: any = ""
 };
 
 export default response;
+
+export const error500 = (res: Response) => {
+    response(res, 500, "internal server error", "Check the server if you are developer");
+};
