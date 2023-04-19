@@ -28,4 +28,4 @@ export const rightDrawerSlice = createSlice({
 
 export const { openRightDrawer, closeRightDrawer } = rightDrawerSlice.actions;
 
-export default rightDrawerSlice.reducer;
+export default rightDrawerSlice;

@@ -9,7 +9,7 @@ const authService = {
         if (status !== 200) {
             throw body.message;
         }
-        return { accessToken: body.tokens.access.token as string };
+        return { accessToken: body.tokens.access.token as string, body };
     },
     register: async (email: string, password: string, name: string) => {
         const { body, status } = await httpc.post("/auth/register", {
@@ -23,7 +23,7 @@ const authService = {
         if (status !== 201) {
             throw body.message;
         }
-        return { accessToken: body.tokens.access.token as string };
+        return { accessToken: body.tokens.access.token as string, body };
     },
     forgotPassword: async (email: string) => {
         const { body, status } = await httpc.post("/auth/forgot-password", { email });

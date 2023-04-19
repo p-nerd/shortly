@@ -25,4 +25,4 @@ export const headerSlice = createSlice({
 export const { setPageTitle, showNotification, removeNotificationMessage } =
     headerSlice.actions;
 
-export default headerSlice.reducer;
+export default headerSlice;

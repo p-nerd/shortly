@@ -1,5 +1,6 @@
 import checkAuth from "@app/auth";
 import initializeApp from "@app/init";
+import useCheckAuth from "@hooks/useCheckAuth";
 import { lazy } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
@@ -14,9 +15,10 @@ const ResetPassword = lazy(() => import("@pages/public/ResetPassword"));
 initializeApp();
 
 // Check for login and initialize axios
-const token = checkAuth();
+const auth = checkAuth();
 
-function App() {
+const App = () => {
+    useCheckAuth();
     return (
         <BrowserRouter>
             <Routes>
@@ -31,13 +33,11 @@ function App() {
 
                 <Route
                     path="*"
-                    element={
-                        <Navigate to={token ? "/app/dashboard" : "/login"} replace />
-                    }
+                    element={<Navigate to={auth ? "/app/dashboard" : "/login"} replace />}
                 />
             </Routes>
         </BrowserRouter>
     );
-}
+};
 
 export default App;

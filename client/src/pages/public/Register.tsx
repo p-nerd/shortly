@@ -1,11 +1,16 @@
 import InputField from "@components/common/Input/InputField";
 import LandingIntro from "@components/common/Public/LandingIntro";
 import ErrorText from "@components/common/Typography/ErrorText";
+import { setAuth } from "@features/auth/authSlice";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import authService from "src/services/auth.service";
 
 const Register = () => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -27,10 +32,16 @@ const Register = () => {
         }
         setLoading(true);
         try {
-            const { accessToken } = await authService.register(email, password, name);
+            const { accessToken, body } = await authService.register(
+                email,
+                password,
+                name
+            );
             localStorage.setItem("accessToken", accessToken);
+            dispatch(setAuth(body));
             setLoading(false);
-            window.location.href = "/app/dashboard";
+            navigate("/app/dashboard");
+            // window.location.href = "/app/dashboard";
         } catch (message: any) {
             setLoading(false);
             return setErrorMessage(message);
