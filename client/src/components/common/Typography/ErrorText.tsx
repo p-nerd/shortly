@@ -4,6 +4,7 @@ type Props = {
 };
 
 const ErrorText = ({ styleClass, message }: Props) => {
+    if (typeof message !== "string") message = "";
     return <p className={`text-error ${styleClass}`}>{message}</p>;
 };
 

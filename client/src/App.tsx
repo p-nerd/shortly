@@ -1,6 +1,5 @@
 import checkAuth from "@app/auth";
 import initializeApp from "@app/init";
-import ResetPassword from "@pages/public/ResetPassword";
 import { lazy } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
@@ -9,6 +8,7 @@ const Layout = lazy(() => import("@components/layouts/Layout"));
 const Login = lazy(() => import("@pages/public/Login"));
 const ForgotPassword = lazy(() => import("@pages/public/ForgotPassword"));
 const Register = lazy(() => import("@pages/public/Register"));
+const ResetPassword = lazy(() => import("@pages/public/ResetPassword"));
 
 // Initializing different libraries
 initializeApp();
