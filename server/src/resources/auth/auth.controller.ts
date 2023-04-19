@@ -2,8 +2,8 @@ import { Request, Response } from "express";
 import httpStatus from "http-status";
 import { emailService } from "../../modules/email";
 import { tokenService } from "../../modules/token";
-import { userService } from "../user";
 import catchAsync from "../../modules/utils/catchAsync";
+import { userService } from "../user";
 import * as authService from "./auth.service";
 
 export const register = catchAsync(async (req: Request, res: Response) => {
@@ -36,8 +36,9 @@ export const forgotPassword = catchAsync(async (req: Request, res: Response) => 
 });
 
 export const resetPassword = catchAsync(async (req: Request, res: Response) => {
-    await authService.resetPassword(req.query["token"], req.body.password);
-    res.status(httpStatus.NO_CONTENT).send();
+    const token = String(req.query["token"]);
+    await authService.resetPassword(token, req.body.password);
+    return res.status(httpStatus.NO_CONTENT).send();
 });
 
 export const sendVerificationEmail = catchAsync(async (req: Request, res: Response) => {

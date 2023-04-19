@@ -36,11 +36,6 @@ export const queryUsers = async (filter: Record<string, any>, options: IOptions)
     return users;
 };
 
-/**
- * Get user by id
- * @param {mongoose.Types.ObjectId} id
- * @returns {Promise<IUserDoc | null>}
- */
 export const getUserById = async (id: mongoose.Types.ObjectId): Promise<IUserDoc | null> => User.findById(id);
 
 /**

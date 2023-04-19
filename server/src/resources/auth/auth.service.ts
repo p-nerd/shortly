@@ -54,18 +54,12 @@ export const refreshAuth = async (refreshToken: string): Promise<IUserWithTokens
     }
 };
 
-/**
- * Reset password
- * @param {string} resetPasswordToken
- * @param {string} newPassword
- * @returns {Promise<void>}
- */
-export const resetPassword = async (resetPasswordToken: any, newPassword: string): Promise<void> => {
+export const resetPassword = async (resetPasswordToken: string, newPassword: string): Promise<void> => {
     try {
         const resetPasswordTokenDoc = await verifyToken(resetPasswordToken, tokenTypes.RESET_PASSWORD);
         const user = await getUserById(new mongoose.Types.ObjectId(resetPasswordTokenDoc.user));
         if (!user) {
-            throw new Error();
+            throw new ApiError(httpStatus.NOT_FOUND, "user not found");
         }
         await updateUserById(user.id, { password: newPassword });
         await Token.deleteMany({ user: user.id, type: tokenTypes.RESET_PASSWORD });

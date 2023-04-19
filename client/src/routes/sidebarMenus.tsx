@@ -5,14 +5,13 @@ import DocumentDuplicateIcon from "@heroicons/react/24/outline/DocumentDuplicate
 import DocumentIcon from "@heroicons/react/24/outline/DocumentIcon";
 import ExclamationTriangleIcon from "@heroicons/react/24/outline/ExclamationTriangleIcon";
 import KeyIcon from "@heroicons/react/24/outline/KeyIcon";
-import Squares2X2Icon from "@heroicons/react/24/outline/Squares2X2Icon";
-import UserIcon from "@heroicons/react/24/outline/UserIcon";
-import UsersIcon from "@heroicons/react/24/outline/UsersIcon";
-import WalletIcon from "@heroicons/react/24/outline/WalletIcon";
 import LinkIcon from "@heroicons/react/24/outline/LinkIcon";
 import PlusIcon from "@heroicons/react/24/outline/PlusIcon";
-import QueueListIcon from "@heroicons/react/24/outline/QueueListIcon";
 import QrCodeIcon from "@heroicons/react/24/outline/QrCodeIcon";
+import QueueListIcon from "@heroicons/react/24/outline/QueueListIcon";
+import Squares2X2Icon from "@heroicons/react/24/outline/Squares2X2Icon";
+import UserIcon from "@heroicons/react/24/outline/UserIcon";
+import LockClosedIcon from "@heroicons/react/24/solid/LockClosedIcon";
 import { ReactNode } from "react";
 
 const iconClasses = `h-6 w-6`;
@@ -83,6 +82,11 @@ const sidebarMenus = [
                 path: "/forgot-password",
                 icon: <KeyIcon className={submenuIconClasses} />,
                 name: "Forgot Password",
+            },
+            {
+                path: "/reset-password",
+                icon: <LockClosedIcon className={submenuIconClasses} />,
+                name: "Reset Password",
             },
             {
                 path: "/app/blank",

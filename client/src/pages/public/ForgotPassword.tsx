@@ -1,36 +1,32 @@
-import InputText, { TUpdateFormValue } from "@components/common/Input/InputText";
+import InputField from "@components/common/Input/InputField";
 import LandingIntro from "@components/common/Public/LandingIntro";
 import ErrorText from "@components/common/Typography/ErrorText";
 import CheckCircleIcon from "@heroicons/react/24/solid/CheckCircleIcon";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import authService from "src/services/auth.service";
 
 function ForgotPassword() {
-    const INITIAL_USER_OBJ = {
-        emailId: "",
-    };
+    const [email, setEmail] = useState("");
 
     const [loading, setLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
     const [linkSent, setLinkSent] = useState(false);
-    const [userObj, setUserObj] = useState(INITIAL_USER_OBJ);
 
-    const submitForm = () => {
+    const submitForm = async () => {
         setErrorMessage("");
 
-        if (userObj.emailId.trim() === "")
+        if (email.trim() === "")
             return setErrorMessage("Email Id is required! (use any value)");
-        else {
-            setLoading(true);
-            // Call API to send password reset link
+        setLoading(true);
+        try {
+            await authService.forgotPassword(email);
             setLoading(false);
             setLinkSent(true);
+        } catch (message: any) {
+            setLoading(false);
+            return setErrorMessage(message);
         }
-    };
-
-    const updateFormValue: TUpdateFormValue = ({ updateType, value }) => {
-        setErrorMessage("");
-        setUserObj({ ...userObj, [updateType ?? ""]: value });
     };
 
     return (
@@ -78,19 +74,20 @@ function ForgotPassword() {
                                     }}
                                 >
                                     <div className="mb-4">
-                                        <InputText
-                                            type="emailId"
-                                            defaultValue={userObj.emailId}
-                                            updateType="emailId"
+                                        <InputField
+                                            type="email"
                                             containerStyle="mt-4"
-                                            labelTitle="Email Id"
-                                            updateFormValue={updateFormValue}
+                                            label="Email Id"
+                                            isRequired={true}
+                                            value={email}
+                                            setValue={setEmail}
                                         />
                                     </div>
 
-                                    <ErrorText styleClass="mt-12">
-                                        {errorMessage}
-                                    </ErrorText>
+                                    <ErrorText
+                                        styleClass="mt-12"
+                                        message={errorMessage}
+                                    />
                                     <button
                                         type="submit"
                                         className={

@@ -1,41 +1,40 @@
-import InputText, { TUpdateFormValue } from "@components/common/Input/InputText";
+import InputField from "@components/common/Input/InputField";
 import LandingIntro from "@components/common/Public/LandingIntro";
 import ErrorText from "@components/common/Typography/ErrorText";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import authService from "src/services/auth.service";
 
-function Register() {
-    const INITIAL_REGISTER_OBJ = {
-        name: "",
-        password: "",
-        emailId: "",
-    };
+const Register = () => {
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
 
     const [loading, setLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
-    const [registerObj, setRegisterObj] = useState(INITIAL_REGISTER_OBJ);
 
-    const submitForm = () => {
+    const submitForm = async () => {
         setErrorMessage("");
-
-        if (registerObj.name.trim() === "")
+        if (name.trim() === "")
             return setErrorMessage("Name is required! (use any value)");
-        if (registerObj.emailId.trim() === "")
+        if (email.trim() === "")
             return setErrorMessage("Email Id is required! (use any value)");
-        if (registerObj.password.trim() === "")
+        if (password.trim() === "")
             return setErrorMessage("Password is required! (use any value)");
-        else {
-            setLoading(true);
-            // Call API to check user credentials and save token in localstorage
-            localStorage.setItem("token", "DumyTokenHere");
+        if (password.trim() !== confirmPassword.trim()) {
+            return setErrorMessage("Password is not matching");
+        }
+        setLoading(true);
+        try {
+            const { accessToken } = await authService.register(email, password, name);
+            localStorage.setItem("accessToken", accessToken);
             setLoading(false);
             window.location.href = "/app/dashboard";
+        } catch (message: any) {
+            setLoading(false);
+            return setErrorMessage(message);
         }
-    };
-
-    const updateFormValue: TUpdateFormValue = ({ updateType, value }) => {
-        setErrorMessage("");
-        setRegisterObj({ ...registerObj, [updateType ?? ""]: value });
     };
 
     return (
@@ -56,33 +55,39 @@ function Register() {
                             }}
                         >
                             <div className="mb-4">
-                                <InputText
-                                    defaultValue={registerObj.name}
-                                    updateType="name"
+                                <InputField
                                     containerStyle="mt-4"
-                                    labelTitle="Name"
-                                    updateFormValue={updateFormValue}
+                                    label="Name"
+                                    value={name}
+                                    setValue={setName}
                                 />
-
-                                <InputText
-                                    defaultValue={registerObj.emailId}
-                                    updateType="emailId"
+                                <InputField
+                                    type="email"
                                     containerStyle="mt-4"
-                                    labelTitle="Email Id"
-                                    updateFormValue={updateFormValue}
+                                    label="Email Id"
+                                    value={email}
+                                    setValue={setEmail}
+                                    isRequired={true}
                                 />
-
-                                <InputText
-                                    defaultValue={registerObj.password}
+                                <InputField
                                     type="password"
-                                    updateType="password"
                                     containerStyle="mt-4"
-                                    labelTitle="Password"
-                                    updateFormValue={updateFormValue}
+                                    label="Password"
+                                    value={password}
+                                    setValue={setPassword}
+                                    isRequired={true}
+                                />
+                                <InputField
+                                    type="password"
+                                    containerStyle="mt-4"
+                                    label="Confirm Password"
+                                    value={confirmPassword}
+                                    setValue={setConfirmPassword}
+                                    isRequired={true}
                                 />
                             </div>
 
-                            <ErrorText styleClass="mt-8">{errorMessage}</ErrorText>
+                            <ErrorText styleClass="mt-8" message={errorMessage} />
                             <button
                                 type="submit"
                                 className={
@@ -107,6 +112,6 @@ function Register() {
             </div>
         </div>
     );
-}
+};
 
 export default Register;

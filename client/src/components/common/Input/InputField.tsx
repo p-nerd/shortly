@@ -6,6 +6,7 @@ type Props = {
     type?: string;
     containerStyle?: string;
     labelStyle?: string;
+    isRequired?: boolean;
 };
 
 const InputField = ({
@@ -16,6 +17,7 @@ const InputField = ({
     placeholder,
     containerStyle,
     labelStyle,
+    isRequired,
 }: Props) => {
     return (
         <div className={`${containerStyle} form-control w-full `}>
@@ -29,6 +31,7 @@ const InputField = ({
                 </label>
             )}
             <input
+                required={isRequired}
                 type={type}
                 value={value}
                 placeholder={placeholder}
@@ -44,6 +47,7 @@ InputField.defaultProps = {
     type: "text",
     containerStyle: "",
     labelStyle: "",
+    isRequired: false,
 };
 
 export default InputField;

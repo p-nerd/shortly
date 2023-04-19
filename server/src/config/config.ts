@@ -21,6 +21,7 @@ const envVarsSchema = Joi.object()
         SMTP_PASSWORD: Joi.string().description("password for email server"),
         EMAIL_FROM: Joi.string().description("the from field in the emails sent by the app"),
         CLIENT_URL: Joi.string().required().description("Client url"),
+        RESET_PASSWORD_PAGE_URL: Joi.string().required().description("Reset password page url"),
     })
     .unknown();
 
@@ -65,6 +66,7 @@ const config = {
         from: envVars.EMAIL_FROM,
     },
     clientUrl: envVars.CLIENT_URL,
+    resetPasswordPageUrl: envVars.RESET_PASSWORD_PAGE_URL,
 };
 
 export default config;

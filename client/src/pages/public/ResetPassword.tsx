@@ -1,31 +1,43 @@
 import InputField from "@components/common/Input/InputField";
 import LandingIntro from "@components/common/Public/LandingIntro";
 import ErrorText from "@components/common/Typography/ErrorText";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import authService from "src/services/auth.service";
 
-const Login = () => {
-    const [email, setEmail] = useState("");
+const ResetPassword = () => {
+    const location = useLocation();
+    const query = new URLSearchParams(location.search);
+
+    const token = query.get("token");
+
+    useEffect(() => {
+        if (!token) {
+            setErrorMessage("Give token in query parameter");
+        }
+    }, [token]);
+
     const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
 
     const [loading, setLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
 
     const submitForm = async () => {
         setErrorMessage("");
-
-        if (email.trim() === "")
-            return setErrorMessage("Email Id is required! (use any value)");
         if (password.trim() === "")
             return setErrorMessage("Password is required! (use any value)");
-
+        if (password.trim() !== confirmPassword.trim()) {
+            return setErrorMessage("Password is not matching");
+        }
+        if (!token) {
+            return setErrorMessage("Give token in query parameter");
+        }
         setLoading(true);
         try {
-            const { accessToken } = await authService.login(email, password);
-            localStorage.setItem("accessToken", accessToken);
+            await authService.resetPassword(password, token);
             setLoading(false);
-            window.location.href = "/app/dashboard";
+            window.location.href = "/login";
         } catch (message: any) {
             setLoading(false);
             return setErrorMessage(message);
@@ -40,7 +52,9 @@ const Login = () => {
                         <LandingIntro />
                     </div>
                     <div className="px-10 py-24">
-                        <h2 className="mb-2 text-center text-2xl font-semibold">Login</h2>
+                        <h2 className="mb-2 text-center text-2xl font-semibold">
+                            Reset Password
+                        </h2>
                         <form
                             onSubmit={e => {
                                 e.preventDefault();
@@ -49,28 +63,24 @@ const Login = () => {
                         >
                             <div className="mb-4">
                                 <InputField
-                                    type="email"
-                                    value={email}
-                                    containerStyle="mt-4"
-                                    label="Email Id"
-                                    setValue={setEmail}
-                                />
-                                <InputField
                                     type="password"
                                     containerStyle="mt-4"
                                     label="Password"
                                     value={password}
                                     setValue={setPassword}
+                                    isRequired={true}
+                                />
+                                <InputField
+                                    type="password"
+                                    containerStyle="mt-4"
+                                    label="Confirm Password"
+                                    value={confirmPassword}
+                                    setValue={setConfirmPassword}
+                                    isRequired={true}
                                 />
                             </div>
-                            <div className="text-right text-primary">
-                                <Link to="/forgot-password">
-                                    <span className="inline-block  text-sm  transition duration-200 hover:cursor-pointer hover:text-primary hover:underline">
-                                        Forgot Password?
-                                    </span>
-                                </Link>
-                            </div>
-                            <ErrorText message={errorMessage} styleClass="mt-8" />{" "}
+
+                            <ErrorText styleClass="mt-8" message={errorMessage} />
                             <button
                                 type="submit"
                                 className={
@@ -78,13 +88,14 @@ const Login = () => {
                                     (loading ? " loading" : "")
                                 }
                             >
-                                Login
+                                Reset Password
                             </button>
+
                             <div className="mt-4 text-center">
-                                Don't have an account yet?{" "}
-                                <Link to="/register">
+                                Already have an account?{" "}
+                                <Link to="/login">
                                     <span className="  inline-block  transition duration-200 hover:cursor-pointer hover:text-primary hover:underline">
-                                        Register
+                                        Login
                                     </span>
                                 </Link>
                             </div>
@@ -96,4 +107,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default ResetPassword;

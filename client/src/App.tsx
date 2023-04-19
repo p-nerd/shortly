@@ -1,5 +1,6 @@
 import checkAuth from "@app/auth";
 import initializeApp from "@app/init";
+import ResetPassword from "@pages/public/ResetPassword";
 import { lazy } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
@@ -20,6 +21,7 @@ function App() {
         <BrowserRouter>
             <Routes>
                 {/* Public routes */}
+                <Route path="/reset-password" element={<ResetPassword />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/forgot-password" element={<ForgotPassword />} />
                 <Route path="/register" element={<Register />} />
