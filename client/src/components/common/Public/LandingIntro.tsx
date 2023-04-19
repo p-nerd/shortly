@@ -7,9 +7,9 @@ function LandingIntro() {
                         <img
                             src="/favicon.svg"
                             className="mask mask-circle mr-2 inline-block w-12"
-                            alt="PNerdLy-logo"
+                            alt="ShortLy logo"
                         />
-                        PNerdLy
+                        ShortLy
                     </h1>
 
                     <div className="mt-12 text-center">

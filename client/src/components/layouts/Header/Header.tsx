@@ -31,15 +31,9 @@ const Header = () => {
 
                 {/* Profile icon, opening menu on click */}
                 <div className="dropdown-end dropdown ml-4">
-                    <label
-                        tabIndex={0}
-                        className="btn-ghost btn-circle avatar btn"
-                    >
+                    <label tabIndex={0} className="btn-ghost btn-circle avatar btn">
                         <div className="w-10 rounded-full">
-                            <img
-                                src="https://placeimg.com/80/80/people"
-                                alt="profile"
-                            />
+                            <img src="https://placeimg.com/80/80/people" alt="profile" />
                         </div>
                     </label>
                     <ul
@@ -53,9 +47,7 @@ const Header = () => {
                             </Link>
                         </li>
                         <li className="">
-                            <Link to={"/app/settings-billing"}>
-                                Bill History
-                            </Link>
+                            <Link to={"/app/settings-billing"}>Bill History</Link>
                         </li>
                         <div className="divider mb-0 mt-0"></div>
                         <li>

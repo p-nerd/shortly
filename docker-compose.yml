@@ -4,18 +4,18 @@ services:
 
   mongodb:
     image: mongo
-    container_name: pnerdly_mongodb
+    container_name: shortly_mongodb
     restart: unless-stopped
     ports:
       - 27017:27017
     volumes:
       - ./data/mongodb:/data/db
     networks:
-      - pnerdly_network
+      - shortly_network
 
   node:
     build: ./server
-    container_name: pnerdly_node
+    container_name: shortly_node
     restart: unless-stopped
     ports:
       - 4000:4000
@@ -24,12 +24,12 @@ services:
     depends_on:
       - mongodb
     networks:
-      - pnerdly_network
+      - shortly_network
     command: yarn dev
 
   react:
     build: ./client
-    container_name: pnerdly_react
+    container_name: shortly_react
     restart: unless-stopped
     ports:
       - 3000:3000
@@ -38,9 +38,9 @@ services:
     depends_on:
       - node
     networks:
-      - pnerdly_network
+      - shortly_network
     command: yarn dev
 
 networks:
-  pnerdly_network:
+  shortly_network:
     driver: bridge

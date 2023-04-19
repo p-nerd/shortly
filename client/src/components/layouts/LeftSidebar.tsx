@@ -14,9 +14,9 @@ const LeftSidebar = () => {
                         <img
                             className="mask mask-squircle w-12"
                             src="/favicon.svg"
-                            alt="PNerdLy Logo"
+                            alt="ShortLy Logo"
                         />
-                        PNerdLy
+                        ShortLy
                     </Link>
                 </li>
                 {sidebarMenus.map((route, k) => {
