@@ -3,7 +3,7 @@ import config from "../../config/config";
 
 const setupTestDB = () => {
     beforeAll(async () => {
-        await mongoose.connect(config.mongoose.url);
+        await mongoose.connect(config.mongoose.testUrl);
     });
 
     beforeEach(async () => {

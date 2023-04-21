@@ -36,6 +36,7 @@ const config = {
     port: envVars.PORT,
     mongoose: {
         url: envVars.MONGODB_URL + (envVars.NODE_ENV === "test" ? "-test" : ""),
+        testUrl: envVars.MONGODB_TEST_URL + (envVars.NODE_ENV === "test" ? "-test" : ""),
         options: {
             useCreateIndex: true,
             useNewUrlParser: true,
