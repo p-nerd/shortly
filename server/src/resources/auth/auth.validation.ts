@@ -5,7 +5,7 @@ import { password } from "../../modules/validate/custom.validation";
 const registerBody: Record<keyof NewRegisteredUser, any> = {
     email: Joi.string().required().email(),
     password: Joi.string().required().custom(password),
-    name: Joi.string().required(),
+    name: Joi.string().optional(),
 };
 
 export const register = {

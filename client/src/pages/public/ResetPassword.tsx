@@ -1,9 +1,9 @@
 import InputField from "@components/common/Input/InputField";
 import LandingIntro from "@components/common/Public/LandingIntro";
 import ErrorText from "@components/common/Typography/ErrorText";
+import authService from "@features/auth/authService";
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import authService from "src/services/auth.service";
 
 const ResetPassword = () => {
     const location = useLocation();

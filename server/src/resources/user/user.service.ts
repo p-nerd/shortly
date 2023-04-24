@@ -2,27 +2,45 @@ import httpStatus from "http-status";
 import mongoose from "mongoose";
 import ApiError from "../../modules/errors/ApiError";
 import { IOptions, QueryResult } from "../../modules/paginate/paginate";
-import { IUserDoc, NewCreatedUser, NewRegisteredUser, UpdateUserBody } from "./user.interfaces";
+import {
+    IUser,
+    IUserDoc,
+    NewCreatedUser,
+    NewRegisteredUser,
+    UpdateUserBody,
+} from "./user.interfaces";
 import User from "./user.model";
 
-/**
- * Create a user
- */
 export const createUser = async (userBody: NewCreatedUser): Promise<IUserDoc> => {
     if (await User.isEmailTaken(userBody.email)) {
         throw new ApiError(httpStatus.BAD_REQUEST, "Email already taken");
     }
-    return User.create(userBody);
+    const body: IUser = {
+        email: userBody.email,
+        password: userBody.password,
+        name: userBody.name,
+        role: userBody.role,
+        isEmailVerified: false,
+        primaryEmail: userBody.email,
+        lastLogin: new Date(),
+    };
+    return User.create(body);
 };
 
-/**
- * Register a user
- */
 export const registerUser = async (userBody: NewRegisteredUser): Promise<IUserDoc> => {
     if (await User.isEmailTaken(userBody.email)) {
         throw new ApiError(httpStatus.BAD_REQUEST, "Email already taken");
     }
-    return User.create(userBody);
+    const body: IUser = {
+        email: userBody.email,
+        password: userBody.password,
+        name: userBody.name,
+        role: "user",
+        isEmailVerified: false,
+        primaryEmail: userBody.email,
+        lastLogin: new Date(),
+    };
+    return User.create(body);
 };
 
 /**
@@ -31,19 +49,24 @@ export const registerUser = async (userBody: NewRegisteredUser): Promise<IUserDo
  * @param {Object} options - Query options
  * @returns {Promise<QueryResult>}
  */
-export const queryUsers = async (filter: Record<string, any>, options: IOptions): Promise<QueryResult> => {
+export const queryUsers = async (
+    filter: Record<string, any>,
+    options: IOptions
+): Promise<QueryResult> => {
     const users = await User.paginate(filter, options);
     return users;
 };
 
-export const getUserById = async (id: mongoose.Types.ObjectId): Promise<IUserDoc | null> => User.findById(id);
+export const getUserById = async (id: mongoose.Types.ObjectId): Promise<IUserDoc | null> =>
+    User.findById(id);
 
 /**
  * Get user by email
  * @param {string} email
  * @returns {Promise<IUserDoc | null>}
  */
-export const getUserByEmail = async (email: string): Promise<IUserDoc | null> => User.findOne({ email });
+export const getUserByEmail = async (email: string): Promise<IUserDoc | null> =>
+    User.findOne({ email });
 
 /**
  * Update user by id

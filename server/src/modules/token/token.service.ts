@@ -10,9 +10,6 @@ import { AccessAndRefreshTokens, ITokenDoc } from "./token.interfaces";
 import Token from "./token.model";
 import tokenTypes from "./token.types";
 
-/**
- * Generate token
- */
 export const generateToken = (
     userId: mongoose.Types.ObjectId,
     expires: Moment,
@@ -68,9 +65,6 @@ export const verifyToken = async (token: string, type: string): Promise<ITokenDo
     return tokenDoc;
 };
 
-/**
- * Generate auth tokens
- */
 export const generateAuthTokens = async (user: IUserDoc): Promise<AccessAndRefreshTokens> => {
     const accessTokenExpires = moment().add(config.jwt.accessExpirationMinutes, "minutes");
     const accessToken = generateToken(user.id, accessTokenExpires, tokenTypes.ACCESS);
@@ -91,9 +85,6 @@ export const generateAuthTokens = async (user: IUserDoc): Promise<AccessAndRefre
     };
 };
 
-/**
- * Generate reset password token
- */
 export const generateResetPasswordToken = async (email: string): Promise<string> => {
     const user = await userService.getUserByEmail(email);
     if (!user) {
@@ -105,9 +96,6 @@ export const generateResetPasswordToken = async (email: string): Promise<string>
     return resetPasswordToken;
 };
 
-/**
- * Generate verify email token
- */
 export const generateVerifyEmailToken = async (user: IUserDoc): Promise<string> => {
     const expires = moment().add(config.jwt.verifyEmailExpirationMinutes, "minutes");
     const verifyEmailToken = generateToken(user.id, expires, tokenTypes.VERIFY_EMAIL);

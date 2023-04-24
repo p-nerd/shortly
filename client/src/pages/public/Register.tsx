@@ -5,7 +5,7 @@ import { setAuth } from "@features/auth/authSlice";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import authService from "src/services/auth.service";
+import authService from "@features/auth/authService";
 
 const Register = () => {
     const dispatch = useDispatch();

@@ -1,10 +1,10 @@
 import InputField from "@components/common/Input/InputField";
 import LandingIntro from "@components/common/Public/LandingIntro";
 import ErrorText from "@components/common/Typography/ErrorText";
+import authService from "@features/auth/authService";
 import CheckCircleIcon from "@heroicons/react/24/solid/CheckCircleIcon";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import authService from "src/services/auth.service";
 
 function ForgotPassword() {
     const [email, setEmail] = useState("");

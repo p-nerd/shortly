@@ -10,14 +10,21 @@ if (config.env !== "test") {
         .verify()
         .then(() => logger.info("Connected to email server"))
         .catch(() =>
-            logger.warn("Unable to connect to email server. Make sure you have configured the SMTP options in .env")
+            logger.warn(
+                "Unable to connect to email server. Make sure you have configured the SMTP options in .env"
+            )
         );
 }
 
 /**
  * Send an email
  */
-export const sendEmail = async (to: string, subject: string, text: string, html: string): Promise<void> => {
+export const sendEmail = async (
+    to: string,
+    subject: string,
+    text: string,
+    html: string
+): Promise<void> => {
     const msg: Message = {
         from: config.email.from,
         to,
@@ -46,10 +53,11 @@ export const sendResetPasswordEmail = async (to: string, token: string): Promise
     await sendEmail(to, subject, text, html);
 };
 
-/**
- * Send verification email
- */
-export const sendVerificationEmail = async (to: string, token: string, name: string): Promise<void> => {
+export const sendVerificationEmail = async (
+    to: string,
+    token: string,
+    name: string
+): Promise<void> => {
     const subject = "Email Verification";
     // replace this url with the link to the email verification page of your front-end app
     const verificationEmailUrl = `http://${config.clientUrl}/verify-email?token=${token}`;
@@ -65,7 +73,11 @@ export const sendVerificationEmail = async (to: string, token: string, name: str
 /**
  * Send email verification after registration
  */
-export const sendSuccessfulRegistration = async (to: string, token: string, name: string): Promise<void> => {
+export const sendSuccessfulRegistration = async (
+    to: string,
+    token: string,
+    name: string
+): Promise<void> => {
     const subject = "Email Verification";
     // replace this url with the link to the email verification page of your front-end app
     const verificationEmailUrl = `http://${config.clientUrl}/verify-email?token=${token}`;

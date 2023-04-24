@@ -1,9 +1,18 @@
 import InputField from "@components/common/Input/InputField";
+import { selectUser } from "@features/auth/authSelector";
 import toast from "@utils/toast";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const DisplayName = () => {
     const [name, setName] = useState("");
+
+    const user = selectUser();
+
+    useEffect(() => {
+        if (user) {
+            setName(user.name);
+        }
+    }, [user]);
 
     const handleUpdateDisplayName = () => {
         toast.success("Name Updated Successfully");
