@@ -11,36 +11,33 @@ import {
 } from "./user.interfaces";
 import User from "./user.model";
 
-export const createUser = async (userBody: NewCreatedUser): Promise<IUserDoc> => {
-    if (await User.isEmailTaken(userBody.email)) {
+const _createUser = async (
+    email: string,
+    password: string,
+    name?: string,
+    role: string = "user"
+): Promise<IUserDoc> => {
+    if (await User.isEmailTaken(email)) {
         throw new ApiError(httpStatus.BAD_REQUEST, "Email already taken");
     }
     const body: IUser = {
-        email: userBody.email,
-        password: userBody.password,
-        name: userBody.name,
-        role: userBody.role,
+        email: email,
+        password: password,
+        name: name,
+        role: role,
         isEmailVerified: false,
-        primaryEmail: userBody.email,
+        primaryEmail: email,
         lastLogin: new Date(),
     };
     return User.create(body);
 };
 
+export const createUser = async (userBody: NewCreatedUser): Promise<IUserDoc> => {
+    return _createUser(userBody.email, userBody.password, userBody.name, userBody.role ?? "user");
+};
+
 export const registerUser = async (userBody: NewRegisteredUser): Promise<IUserDoc> => {
-    if (await User.isEmailTaken(userBody.email)) {
-        throw new ApiError(httpStatus.BAD_REQUEST, "Email already taken");
-    }
-    const body: IUser = {
-        email: userBody.email,
-        password: userBody.password,
-        name: userBody.name,
-        role: "user",
-        isEmailVerified: false,
-        primaryEmail: userBody.email,
-        lastLogin: new Date(),
-    };
-    return User.create(body);
+    return _createUser(userBody.email, userBody.password, userBody.name, "user");
 };
 
 /**
