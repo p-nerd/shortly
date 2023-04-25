@@ -30,7 +30,7 @@ export type TAuthResponse = {
     };
 };
 
-export type TAuth = {
+export type TAuthState = {
     user: TUser | null;
     tokens: {
         access: TToken;

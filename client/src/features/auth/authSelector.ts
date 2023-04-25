@@ -1,6 +1,6 @@
 import { useAppSelector } from "@app/hooks";
-import { User } from "./authSlice";
+import { TUser } from "./authTypes";
 
-export const selectUser = (): User | undefined => {
+export const selectUser = (): TUser | null => {
     return useAppSelector(state => state.auth.user);
 };

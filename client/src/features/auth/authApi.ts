@@ -1,3 +1,4 @@
+import { storeAuthInLocalStorage } from "@utils/local";
 import apiSlice from "../api/apiSlice";
 import { userLoggedIn } from "./authSlice";
 import { TAuthResponse, TLoginRequest, TRegisterRequest } from "./authTypes";
@@ -11,25 +12,21 @@ export const authApi = apiSlice.injectEndpoints({
                 body: data,
             }),
             onQueryStarted: async (_, { queryFulfilled, dispatch }) => {
-                try {
-                    const result = await queryFulfilled;
-                    localStorage.setItem("auth", JSON.stringify(result.data));
-                    dispatch(userLoggedIn(result.data));
-                } catch (e: any) {}
+                const result = await queryFulfilled;
+                storeAuthInLocalStorage(result.data);
+                dispatch(userLoggedIn(result.data));
             },
         }),
         register: builder.mutation<TAuthResponse, TRegisterRequest>({
             query: data => ({
-                url: "/register",
+                url: "/auth/register",
                 method: "POST",
                 body: data,
             }),
             onQueryStarted: async (_, { queryFulfilled, dispatch }) => {
-                try {
-                    const result = await queryFulfilled;
-                    localStorage.setItem("auth", JSON.stringify(result.data));
-                    dispatch(userLoggedIn(result.data));
-                } catch (e: any) {}
+                const result = await queryFulfilled;
+                storeAuthInLocalStorage(result.data);
+                dispatch(userLoggedIn(result.data));
             },
         }),
     }),

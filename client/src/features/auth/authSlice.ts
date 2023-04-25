@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { TAuth, TAuthResponse } from "./authTypes";
+import { TAuthState, TAuthResponse } from "./authTypes";
 
-const initialState: TAuth = {
+const initialState: TAuthState = {
     user: null,
     tokens: null,
 };
