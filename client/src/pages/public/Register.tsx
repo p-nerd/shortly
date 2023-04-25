@@ -1,7 +1,7 @@
 import InputField from "@components/common/Input/InputField";
 import LandingIntro from "@components/common/Public/LandingIntro";
 import ErrorText from "@components/common/Typography/ErrorText";
-import { setAuth } from "@features/auth/authSlice";
+// import { setAuth } from "@features/auth/authSlice";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
@@ -38,7 +38,7 @@ const Register = () => {
                 name
             );
             localStorage.setItem("accessToken", accessToken);
-            dispatch(setAuth(body));
+            // dispatch(setAuth(body));
             setLoading(false);
             navigate("/app/dashboard");
             // window.location.href = "/app/dashboard";

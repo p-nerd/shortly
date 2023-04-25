@@ -1,4 +1,4 @@
-import { setAuth } from "@features/auth/authSlice";
+import { userLoggedIn } from "@features/auth/authSlice";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
@@ -10,7 +10,7 @@ const useCheckAuth = () => {
         if (!authString) return;
         try {
             const auth = JSON.parse(authString);
-            dispatch(setAuth(auth));
+            dispatch(userLoggedIn(auth));
         } catch (e: any) {
             return;
         }

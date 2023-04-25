@@ -1,39 +1,26 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { TAuth, TAuthResponse } from "./authTypes";
 
-export type Token = {
-    token: string;
-    expires: Date;
+const initialState: TAuth = {
+    user: null,
+    tokens: null,
 };
-
-export type User = {
-    name: string;
-    email: string;
-    role: "user" | "admin";
-    isEmailVerified: boolean;
-    id: string;
-};
-
-type InitialState = {
-    user?: User;
-    tokens?: {
-        access: Token;
-        refresh: Token;
-    };
-};
-
-const initialState: InitialState = {};
 
 export const authSlice = createSlice({
     name: "auth",
     initialState,
     reducers: {
-        setAuth: (state, action) => {
-            localStorage.setItem("auth", JSON.stringify(action.payload));
+        userLoggedIn: (state, action: PayloadAction<TAuthResponse>) => {
             state.user = action.payload.user;
             state.tokens = action.payload.tokens;
+        },
+        userLoggedOut: state => {
+            localStorage.removeItem("auth");
+            state.tokens = null;
+            state.user = null;
         },
     },
 });
 
-export const { setAuth } = authSlice.actions;
+export const { userLoggedIn, userLoggedOut } = authSlice.actions;
 export default authSlice;

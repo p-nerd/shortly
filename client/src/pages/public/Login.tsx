@@ -1,14 +1,11 @@
 import InputField from "@components/common/Input/InputField";
 import LandingIntro from "@components/common/Public/LandingIntro";
 import ErrorText from "@components/common/Typography/ErrorText";
-import { setAuth } from "@features/auth/authSlice";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useLoginMutation } from "@features/auth/authApi";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import authService from "@features/auth/authService";
 
 const Login = () => {
-    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const [email, setEmail] = useState("");
@@ -16,6 +13,24 @@ const Login = () => {
 
     const [loading, setLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
+
+    const [login, { isLoading, isSuccess, isError, error }] = useLoginMutation();
+
+    useEffect(() => {
+        if (isError) {
+            setErrorMessage(error.data.message);
+        }
+    }, [isError]);
+
+    useEffect(() => {
+        setLoading(loading);
+    }, [isLoading]);
+
+    useEffect(() => {
+        if (isSuccess) {
+            navigate("/app/dashboard");
+        }
+    }, [isSuccess]);
 
     const submitForm = async () => {
         setErrorMessage("");
@@ -25,18 +40,7 @@ const Login = () => {
         if (password.trim() === "")
             return setErrorMessage("Password is required! (use any value)");
 
-        setLoading(true);
-        try {
-            const { accessToken, body } = await authService.login(email, password);
-            localStorage.setItem("accessToken", accessToken);
-            dispatch(setAuth(body));
-            setLoading(false);
-            navigate("/app/dashboard");
-            // window.location.href = "/app/dashboard";
-        } catch (message: any) {
-            setLoading(false);
-            return setErrorMessage(message);
-        }
+        login({ email: email.trim(), password: password.trim() });
     };
 
     return (
