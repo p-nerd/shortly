@@ -11,8 +11,6 @@ export interface IUser {
     email: string;
     password: string;
     role: string;
-    isEmailVerified: boolean;
-    primaryEmail: string;
     lastLogin: Date;
     name?: string | undefined;
     otherEmails?: OtherEmail[] | undefined;
@@ -32,12 +30,12 @@ export type UpdateUserBody = Partial<IUser>;
 
 export type NewRegisteredUser = Omit<
     IUser,
-    "role" | "isEmailVerified" | "primaryEmail" | "lastLogin" | "otherEmails" | "mobileNumber"
+    "role"  | "primaryEmail" | "lastLogin" | "otherEmails" | "mobileNumber"
 >;
 
 export type NewCreatedUser = Omit<
     IUser,
-    "isEmailVerified" | "primaryEmail" | "lastLogin" | "otherEmails" | "mobileNumber"
+    "primaryEmail" | "lastLogin" | "otherEmails" | "mobileNumber"
 >;
 
 export interface IUserWithTokens {

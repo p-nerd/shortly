@@ -42,9 +42,25 @@ const userSchema = new mongoose.Schema<IUserDoc, IUserModel>(
             enum: roles,
             default: "user",
         },
-        isEmailVerified: {
-            type: Boolean,
-            default: false,
+        otherEmails: {
+            type: [
+                {
+                    email: {
+                        type: String,
+                        trim: true,
+                        lowercase: true,
+                        validate(value: string) {
+                            if (!validator.isEmail(value)) {
+                                throw new Error("Invalid email");
+                            }
+                        },
+                    },
+                    isEmailVerified: {
+                        type: Boolean,
+                        default: false,
+                    },
+                },
+            ],
         },
     },
     {
@@ -62,10 +78,13 @@ userSchema.plugin(paginate);
  * @param {ObjectId} [excludeUserId] - The id of the user to be excluded
  * @returns {Promise<boolean>}
  */
-userSchema.static("isEmailTaken", async function (email: string, excludeUserId: mongoose.ObjectId): Promise<boolean> {
-    const user = await this.findOne({ email, _id: { $ne: excludeUserId } });
-    return !!user;
-});
+userSchema.static(
+    "isEmailTaken",
+    async function (email: string, excludeUserId: mongoose.ObjectId): Promise<boolean> {
+        const user = await this.findOne({ email, _id: { $ne: excludeUserId } });
+        return !!user;
+    }
+);
 
 /**
  * Check if password matches the user's password

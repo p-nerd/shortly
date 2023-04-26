@@ -25,7 +25,6 @@ const userOne = {
     email: faker.internet.email().toLowerCase(),
     password,
     role: "user",
-    isEmailVerified: false,
 };
 
 const userTwo = {
@@ -34,7 +33,6 @@ const userTwo = {
     email: faker.internet.email().toLowerCase(),
     password,
     role: "user",
-    isEmailVerified: false,
 };
 
 const admin = {
@@ -43,7 +41,6 @@ const admin = {
     email: faker.internet.email().toLowerCase(),
     password,
     role: "admin",
-    isEmailVerified: false,
 };
 
 const userOneAccessToken = tokenService.generateToken(
@@ -89,7 +86,6 @@ describe("User routes", () => {
                 name: newUser.name,
                 email: newUser.email,
                 role: newUser.role,
-                isEmailVerified: false,
             });
 
             const dbUser = await User.findById(res.body.id);
@@ -101,7 +97,6 @@ describe("User routes", () => {
                 name: newUser.name,
                 email: newUser.email,
                 role: newUser.role,
-                isEmailVerified: false,
             });
         });
 
@@ -224,7 +219,6 @@ describe("User routes", () => {
                 name: userOne.name,
                 email: userOne.email,
                 role: userOne.role,
-                isEmailVerified: userOne.isEmailVerified,
             });
         });
 
@@ -427,7 +421,6 @@ describe("User routes", () => {
                 email: userOne.email,
                 name: userOne.name,
                 role: userOne.role,
-                isEmailVerified: userOne.isEmailVerified,
             });
         });
 
@@ -566,7 +559,6 @@ describe("User routes", () => {
                 name: updateBody.name,
                 email: updateBody.email,
                 role: "user",
-                isEmailVerified: false,
             });
 
             const dbUser = await User.findById(userOne._id);

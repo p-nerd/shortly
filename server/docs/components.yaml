@@ -13,22 +13,29 @@ components:
         role:
           type: string
           enum: [user, admin]
-        isEmailVerified:
-          type: boolean
+        otherEmails: 
+          type: array
+          items:
+            type: object
+            properties:
+              email:
+                type: string
+                format: email
+              isEmailVerified:
+                type: boolean
       example:
         id: 5ebac534954b54139806c112
         email: fake@example.com
         name: fake name
         role: user
-        isEmailVerified: false
-
+        otherEmails: [{email: fake@example.com, isEmailVerified: false}]
 
     Token:
       type: object
       properties:
         token:
           type: string
-        expires:
+        expires: 
           type: string
           format: date-time
       example:

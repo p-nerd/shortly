@@ -25,9 +25,8 @@ const _createUser = async (
         password: password,
         name: name,
         role: role,
-        isEmailVerified: false,
-        primaryEmail: email,
         lastLogin: new Date(),
+        otherEmails: [{ email, isEmailVerified: false }],
     };
     return User.create(body);
 };

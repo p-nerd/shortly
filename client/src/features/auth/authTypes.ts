@@ -18,7 +18,6 @@ export type TUser = {
     name: string;
     email: string;
     role: "user" | "admin";
-    isEmailVerified: boolean;
     id: string;
 };
 

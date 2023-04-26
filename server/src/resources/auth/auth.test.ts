@@ -31,7 +31,6 @@ const userOne = {
     email: faker.internet.email().toLowerCase(),
     password,
     role: "user",
-    isEmailVerified: false,
 };
 
 const userOneAccessToken = tokenService.generateToken(
@@ -67,7 +66,6 @@ describe("Auth routes", () => {
                 name: newUser.name,
                 email: newUser.email,
                 role: "user",
-                isEmailVerified: false,
             });
 
             const dbUser = await User.findById(res.body.user.id);
@@ -76,7 +74,6 @@ describe("Auth routes", () => {
                 name: newUser.name,
                 email: newUser.email,
                 role: "user",
-                isEmailVerified: false,
             });
 
             expect(res.body.tokens).toEqual({
@@ -148,7 +145,6 @@ describe("Auth routes", () => {
                 name: userOne.name,
                 email: userOne.email,
                 role: userOne.role,
-                isEmailVerified: userOne.isEmailVerified,
             });
 
             expect(res.body.tokens).toEqual({
@@ -276,7 +272,6 @@ describe("Auth routes", () => {
                 name: userOne.name,
                 email: userOne.email,
                 role: userOne.role,
-                isEmailVerified: userOne.isEmailVerified,
             });
 
             expect(res.body.tokens).toEqual({

@@ -16,7 +16,6 @@ const userOne = {
     email: faker.internet.email().toLowerCase(),
     password,
     role: "user",
-    isEmailVerified: false,
 };
 
 const userOneAccessToken = tokenService.generateToken(userOne._id, accessTokenExpires, tokenTypes.ACCESS);
