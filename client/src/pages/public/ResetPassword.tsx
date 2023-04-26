@@ -1,12 +1,14 @@
 import InputField from "@components/common/Input/InputField";
 import LandingIntro from "@components/common/Public/LandingIntro";
 import ErrorText from "@components/common/Typography/ErrorText";
-import authService from "@features/auth/authService";
+import { useResetPasswordMutation } from "@features/auth/authApi";
 import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const ResetPassword = () => {
     const location = useLocation();
+    const navigate = useNavigate();
+
     const query = new URLSearchParams(location.search);
 
     const token = query.get("token");
@@ -23,6 +25,25 @@ const ResetPassword = () => {
     const [loading, setLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
 
+    const [resetPassword, { isLoading, isSuccess, isError, error }] =
+        useResetPasswordMutation();
+
+    useEffect(() => {
+        if (isError) {
+            setErrorMessage(error.data.message);
+        }
+    }, [isError]);
+
+    useEffect(() => {
+        setLoading(loading);
+    }, [isLoading]);
+
+    useEffect(() => {
+        if (isSuccess) {
+            navigate("/login");
+        }
+    }, [isSuccess]);
+
     const submitForm = async () => {
         setErrorMessage("");
         if (password.trim() === "")
@@ -33,15 +54,8 @@ const ResetPassword = () => {
         if (!token) {
             return setErrorMessage("Give token in query parameter");
         }
-        setLoading(true);
-        try {
-            await authService.resetPassword(password, token);
-            setLoading(false);
-            window.location.href = "/login";
-        } catch (message: any) {
-            setLoading(false);
-            return setErrorMessage(message);
-        }
+
+        resetPassword({ password, token });
     };
 
     return (
