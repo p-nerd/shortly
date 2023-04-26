@@ -1,5 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { TAuthState, TAuthResponse } from "./authTypes";
+import { TAuthState, TAuthResponse, TUser } from "./authTypes";
+import { removeAuthInLocalStorage, storeAuthInLocalStorage } from "@utils/local";
 
 const initialState: TAuthState = {
     user: null,
@@ -13,14 +14,19 @@ export const authSlice = createSlice({
         userLoggedIn: (state, action: PayloadAction<TAuthResponse>) => {
             state.user = action.payload.user;
             state.tokens = action.payload.tokens;
+            storeAuthInLocalStorage(state as any);
         },
         userLoggedOut: state => {
-            localStorage.removeItem("auth");
+            removeAuthInLocalStorage();
             state.tokens = null;
             state.user = null;
+        },
+        setUser: (state, action: PayloadAction<TUser>) => {
+            state.user = action.payload;
+            storeAuthInLocalStorage(state as any);
         },
     },
 });
 
-export const { userLoggedIn, userLoggedOut } = authSlice.actions;
+export const { userLoggedIn, userLoggedOut, setUser } = authSlice.actions;
 export default authSlice;

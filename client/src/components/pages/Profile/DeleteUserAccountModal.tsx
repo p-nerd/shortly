@@ -90,8 +90,8 @@ const DeleteUserAccountModal = () => {
                         <h4 className="font-semibold">
                             We're sad to see you go. Can you tell us why you're leaving?
                         </h4>
-                        {deletionReasons.map(item => (
-                            <label className="flex gap-2">
+                        {deletionReasons.map((item, index) => (
+                            <label key={index} className="flex gap-2">
                                 <input
                                     type="radio"
                                     name="leaving-reason"

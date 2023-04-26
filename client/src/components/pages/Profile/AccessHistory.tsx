@@ -25,8 +25,8 @@ const AccessHistory = () => {
             </p>
             <button className="btn-primary btn mt-3">Log out of all devices</button>
             <div className="mt-6">
-                {loginHistory.map(item => (
-                    <>
+                {loginHistory.map((item, index) => (
+                    <div key={index}>
                         <div className="flex justify-between">
                             <div className="flex flex-col">
                                 <span>Log In</span>
@@ -40,7 +40,7 @@ const AccessHistory = () => {
                             </div>
                         </div>
                         <div className="divider"></div>
-                    </>
+                    </div>
                 ))}
             </div>
 
