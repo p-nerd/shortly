@@ -7,6 +7,8 @@ const router: Router = express.Router();
 
 router
     .route("/me")
+    .get(auth(), userController.getUserByMe)
+    .delete(auth(), userController.deleteUserByMe)
     .patch(auth(), validate(userValidation.updateUserMe), userController.updateUserByMe);
 
 router
@@ -248,6 +250,90 @@ export default router;
  *         schema:
  *           type: string
  *         description: User id
+ *     responses:
+ *       "200":
+ *         description: No content
+ *       "401":
+ *         $ref: '#/components/responses/Unauthorized'
+ *       "403":
+ *         $ref: '#/components/responses/Forbidden'
+ *       "404":
+ *         $ref: '#/components/responses/NotFound'
+ */
+
+/**
+ * @swagger
+ * /users/me:
+ *   get:
+ *     summary: Get logged in user
+ *     description: Logged in users can fetch only their own user information. Only admins can fetch other users.
+ *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       "200":
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *                $ref: '#/components/schemas/User'
+ *       "401":
+ *         $ref: '#/components/responses/Unauthorized'
+ *       "403":
+ *         $ref: '#/components/responses/Forbidden'
+ *       "404":
+ *         $ref: '#/components/responses/NotFound'
+ *
+ *   patch:
+ *     summary: Update logged in user
+ *     description: Logged in users can only update their own information. Only admins can update other users.
+ *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *                 format: email
+ *                 description: must be unique
+ *               password:
+ *                 type: string
+ *                 format: password
+ *                 minLength: 8
+ *                 description: At least one number and one letter
+ *             example:
+ *               name: fake name
+ *               email: fake@example.com
+ *               password: password1
+ *     responses:
+ *       "200":
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *                $ref: '#/components/schemas/User'
+ *       "400":
+ *         $ref: '#/components/responses/DuplicateEmail'
+ *       "401":
+ *         $ref: '#/components/responses/Unauthorized'
+ *       "403":
+ *         $ref: '#/components/responses/Forbidden'
+ *       "404":
+ *         $ref: '#/components/responses/NotFound'
+ *
+ *   delete:
+ *     summary: Delete logged in user
+ *     description: Logged in users can delete only themselves. Only admins can delete other users.
+ *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       "200":
  *         description: No content

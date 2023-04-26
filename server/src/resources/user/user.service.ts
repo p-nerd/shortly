@@ -40,12 +40,6 @@ export const registerUser = async (userBody: NewRegisteredUser): Promise<IUserDo
     return _createUser(userBody.email, userBody.password, userBody.name, "user");
 };
 
-/**
- * Query for users
- * @param {Object} filter - Mongo filter
- * @param {Object} options - Query options
- * @returns {Promise<QueryResult>}
- */
 export const queryUsers = async (
     filter: Record<string, any>,
     options: IOptions
@@ -57,20 +51,9 @@ export const queryUsers = async (
 export const getUserById = async (id: mongoose.Types.ObjectId): Promise<IUserDoc | null> =>
     User.findById(id);
 
-/**
- * Get user by email
- * @param {string} email
- * @returns {Promise<IUserDoc | null>}
- */
 export const getUserByEmail = async (email: string): Promise<IUserDoc | null> =>
     User.findOne({ email });
 
-/**
- * Update user by id
- * @param {mongoose.Types.ObjectId} userId
- * @param {UpdateUserBody} updateBody
- * @returns {Promise<IUserDoc | null>}
- */
 export const updateUserById = async (
     userId: mongoose.Types.ObjectId,
     updateBody: UpdateUserBody
@@ -87,11 +70,6 @@ export const updateUserById = async (
     return user;
 };
 
-/**
- * Delete user by id
- * @param {mongoose.Types.ObjectId} userId
- * @returns {Promise<IUserDoc | null>}
- */
 export const deleteUserById = async (userId: mongoose.Types.ObjectId): Promise<IUserDoc | null> => {
     const user = await getUserById(userId);
     if (!user) {
