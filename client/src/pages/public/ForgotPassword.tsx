@@ -1,9 +1,9 @@
 import InputField from "@components/common/Input/InputField";
 import LandingIntro from "@components/common/Public/LandingIntro";
 import ErrorText from "@components/common/Typography/ErrorText";
-import authService from "@features/auth/authService";
+import { useForgotPasswordMutation } from "@features/auth/authApi";
 import CheckCircleIcon from "@heroicons/react/24/solid/CheckCircleIcon";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 function ForgotPassword() {
@@ -13,20 +13,32 @@ function ForgotPassword() {
     const [errorMessage, setErrorMessage] = useState("");
     const [linkSent, setLinkSent] = useState(false);
 
+    const [forgotPassword, { isLoading, isSuccess, isError, error }] =
+        useForgotPasswordMutation();
+
+    useEffect(() => {
+        if (isError) {
+            setErrorMessage(error.data.message);
+        }
+    }, [isError]);
+
+    useEffect(() => {
+        setLoading(loading);
+    }, [isLoading]);
+
+    useEffect(() => {
+        if (isSuccess) {
+            setLinkSent(true);
+        }
+    }, [isSuccess]);
+
     const submitForm = async () => {
         setErrorMessage("");
 
         if (email.trim() === "")
             return setErrorMessage("Email Id is required! (use any value)");
-        setLoading(true);
-        try {
-            await authService.forgotPassword(email);
-            setLoading(false);
-            setLinkSent(true);
-        } catch (message: any) {
-            setLoading(false);
-            return setErrorMessage(message);
-        }
+
+        forgotPassword(email.trim());
     };
 
     return (
