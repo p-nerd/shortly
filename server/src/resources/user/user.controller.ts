@@ -41,6 +41,11 @@ export const updateUser = catchAsync(async (req: Request, res: Response) => {
     }
 });
 
+export const updateUserByMe = catchAsync(async (req: Request, res: Response) => {
+    const user = await userService.updateUserById(req.user._id, req.body);
+    return res.send(user);
+});
+
 export const deleteUser = catchAsync(async (req: Request, res: Response) => {
     if (typeof req.params["userId"] === "string") {
         await userService.deleteUserById(new mongoose.Types.ObjectId(req.params["userId"]));

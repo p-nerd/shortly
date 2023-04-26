@@ -5,9 +5,9 @@ import { TUserRequest } from "./usersTypes";
 
 export const usersApi = apiSlice.injectEndpoints({
     endpoints: builder => ({
-        updateUser: builder.mutation<TUser, TUserRequest>({
-            query: ({ data, id }) => ({
-                url: `/users/${id}`,
+        updateMe: builder.mutation<TUser, TUserRequest>({
+            query: data => ({
+                url: `/users/me`,
                 method: "PATCH",
                 body: data,
             }),
@@ -53,6 +53,6 @@ export const usersApi = apiSlice.injectEndpoints({
     }),
 });
 
-export const { useUpdateUserMutation } = usersApi;
+export const { useUpdateMeMutation } = usersApi;
 
 export default usersApi;
