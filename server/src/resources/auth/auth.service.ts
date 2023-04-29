@@ -65,6 +65,7 @@ export const resetPassword = async (
     }
 };
 
+// TODO: left to put the update verification
 export const verifyEmail = async (verifyEmailToken: any): Promise<IUserDoc | null> => {
     try {
         const verifyEmailTokenDoc = await verifyToken(verifyEmailToken, tokenTypes.VERIFY_EMAIL);
@@ -73,7 +74,7 @@ export const verifyEmail = async (verifyEmailToken: any): Promise<IUserDoc | nul
             throw new Error("Not Found");
         }
         await Token.deleteMany({ user: user.id, type: tokenTypes.VERIFY_EMAIL });
-        const updatedUser = await updateUserById(user.id, { isEmailVerified: true });
+        const updatedUser = await updateUserById(user.id, {});
         return updatedUser;
     } catch (error) {
         throw new ApiError(httpStatus.UNAUTHORIZED, "Email verification failed");

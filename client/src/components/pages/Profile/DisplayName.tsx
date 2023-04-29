@@ -15,7 +15,7 @@ const DisplayName = () => {
         }
     }, [user]);
 
-    const [updateUser, { isLoading, isSuccess, isError, error }] = useUpdateMeMutation();
+    const [updateMe, { isLoading, isSuccess, isError, error }] = useUpdateMeMutation();
 
     useEffect(() => {
         if (isError) {
@@ -31,7 +31,7 @@ const DisplayName = () => {
 
     const handleUpdateDisplayName = () => {
         if (user) {
-            updateUser({ name });
+            updateMe({ name });
         }
     };
 

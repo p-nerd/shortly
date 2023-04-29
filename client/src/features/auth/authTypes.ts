@@ -14,11 +14,17 @@ export type TToken = {
     expires: Date;
 };
 
+export type OtherEmail = {
+    email: string;
+    isEmailVerified: boolean;
+};
+
 export type TUser = {
     name: string;
     email: string;
     role: "user" | "admin";
     id: string;
+    otherEmails: [];
 };
 
 export type TAuthResponse = {

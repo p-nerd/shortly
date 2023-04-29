@@ -1,31 +1,15 @@
+import { selectEmail, selectOtherEmails } from "@features/auth/authSelector";
 import CheckCircleIcon from "@heroicons/react/24/solid/CheckCircleIcon";
 import TrashIcon from "@heroicons/react/24/solid/TrashIcon";
-import { useEffect, useState } from "react";
 import AddEmailModal from "./AddEmailModal";
 
-const email = "shihab4t@gmail.com";
-const otherEmails = [
-    {
-        email: "shihab4t@gmail.com",
-        isVerified: true,
-    },
-    {
-        email: "shihab4t2@gmail.com",
-        isVerified: true,
-    },
-    {
-        email: "shihab4t3@gmail.com",
-        statue: false,
-    },
-];
-
 const EmailAddresses = () => {
-    const [primaryEmail, setPrimaryEmail] = useState<string | null>(null);
+    const email = selectEmail();
+    const otherEmails = selectOtherEmails();
 
-    useEffect(() => {
-        setPrimaryEmail(email);
-    }, []);
-
+    const handleChangePrimaryEmail = () => {
+        console.log("Clicked Change Primary Email");
+    };
     const handleDelete = () => {
         console.log("Clicked Delete");
     };
@@ -49,40 +33,46 @@ const EmailAddresses = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {otherEmails.map((item, index) => (
-                            <tr key={index}>
-                                <th>{item.email}</th>
-                                <td>
-                                    {item.isVerified ? (
-                                        <div className="flex items-center gap-1">
-                                            <CheckCircleIcon className="h-5 w-5 text-green-400" />
-                                            <span>Verified</span>
-                                        </div>
-                                    ) : (
-                                        <div className="flex items-center gap-1">
-                                            <CheckCircleIcon className="h-5 w-5" />
-                                            <span>Not Verified</span>
-                                        </div>
-                                    )}{" "}
-                                </td>
-                                <td>
-                                    <input
-                                        checked={primaryEmail === item.email}
-                                        onChange={() => setPrimaryEmail(item.email)}
-                                        type="checkbox"
-                                        className="checkbox-primary checkbox"
-                                    />
-                                </td>
-                                <td>
-                                    {item.email !== email && (
-                                        <TrashIcon
-                                            onClick={handleDelete}
-                                            className="w-7"
-                                        />
-                                    )}
-                                </td>
-                            </tr>
-                        ))}
+                        {email && otherEmails ? (
+                            <>
+                                {otherEmails.map((item, index) => (
+                                    <tr key={index}>
+                                        <th>{item.email}</th>
+                                        <td>
+                                            {item.isEmailVerified ? (
+                                                <div className="flex items-center gap-1">
+                                                    <CheckCircleIcon className="h-5 w-5 text-green-400" />
+                                                    <span>Verified</span>
+                                                </div>
+                                            ) : (
+                                                <div className="flex items-center gap-1">
+                                                    <CheckCircleIcon className="h-5 w-5" />
+                                                    <span>Not Verified</span>
+                                                </div>
+                                            )}
+                                        </td>
+                                        <td>
+                                            <input
+                                                checked={email === item.email}
+                                                onChange={handleChangePrimaryEmail}
+                                                type="checkbox"
+                                                className="checkbox-primary checkbox"
+                                            />
+                                        </td>
+                                        <td>
+                                            {item.email !== email && (
+                                                <TrashIcon
+                                                    onClick={handleDelete}
+                                                    className="w-7"
+                                                />
+                                            )}
+                                        </td>
+                                    </tr>
+                                ))}
+                            </>
+                        ) : (
+                            <></>
+                        )}
                     </tbody>
                 </table>
             </div>

@@ -2,11 +2,6 @@ import mongoose, { Document, Model } from "mongoose";
 import { QueryResult } from "../../modules/paginate/paginate";
 import { AccessAndRefreshTokens } from "../../modules/token/token.interfaces";
 
-export interface OtherEmail {
-    email: string;
-    isEmailVerified: boolean;
-}
-
 export interface IUser {
     email: string;
     password: string;
@@ -30,7 +25,7 @@ export type UpdateUserBody = Partial<IUser>;
 
 export type NewRegisteredUser = Omit<
     IUser,
-    "role"  | "primaryEmail" | "lastLogin" | "otherEmails" | "mobileNumber"
+    "role" | "primaryEmail" | "lastLogin" | "otherEmails" | "mobileNumber"
 >;
 
 export type NewCreatedUser = Omit<
@@ -42,3 +37,9 @@ export interface IUserWithTokens {
     user: IUserDoc;
     tokens: AccessAndRefreshTokens;
 }
+
+export type OtherEmail = {
+    email: string;
+    isEmailVerified: boolean;
+    _id?: string;
+};

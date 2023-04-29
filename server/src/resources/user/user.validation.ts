@@ -1,6 +1,6 @@
 import Joi from "joi";
 import { objectId, password } from "../../modules/validate/custom.validation";
-import { NewCreatedUser } from "./user.interfaces";
+import { NewCreatedUser, OtherEmail } from "./user.interfaces";
 
 const createUserBody: Record<keyof NewCreatedUser, any> = {
     name: Joi.string().optional(),
@@ -49,6 +49,13 @@ export const updateUserMe = {
             email: Joi.string().email(),
             password: Joi.string().custom(password),
             name: Joi.string(),
+            otherEmails: Joi.array().items(
+                Joi.object<OtherEmail>({
+                    email: Joi.string().email().required(),
+                    isEmailVerified: Joi.boolean().required(),
+                    _id: Joi.string(),
+                })
+            ),
         })
         .min(1),
 };
