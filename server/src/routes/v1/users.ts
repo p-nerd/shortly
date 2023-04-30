@@ -6,6 +6,10 @@ import { validate } from "../../modules/validate";
 const router: Router = express.Router();
 
 router
+    .route("/me/change-password")
+    .patch(auth(), validate(userValidation.changePasswordMe), userController.changePasswordByMe);
+
+router
     .route("/me")
     .get(auth(), userController.getUserByMe)
     .delete(auth(), userController.deleteUserByMe)
@@ -337,6 +341,50 @@ export default router;
  *     responses:
  *       "200":
  *         description: No content
+ *       "401":
+ *         $ref: '#/components/responses/Unauthorized'
+ *       "403":
+ *         $ref: '#/components/responses/Forbidden'
+ *       "404":
+ *         $ref: '#/components/responses/NotFound'
+ */
+
+/**
+ * @swagger
+ * /users/me/change-password:
+ *   patch:
+ *     summary: Update logged in user
+ *     description: Logged in users can only update their own information. Only admins can update other users.
+ *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               currentPassword:
+ *                 type: string
+ *                 format: password
+ *               newPassword:
+ *                 type: string
+ *                 format: password
+ *                 minLength: 8
+ *                 description: At least one number and one letter
+ *             example:
+ *               currentPassword: your-password
+ *               newPassword: password1
+ *     responses:
+ *       "200":
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *                $ref: '#/components/schemas/User'
+ *       "400":
+ *         $ref: '#/components/responses/WrongPassword'
  *       "401":
  *         $ref: '#/components/responses/Unauthorized'
  *       "403":

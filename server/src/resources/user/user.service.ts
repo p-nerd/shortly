@@ -1,7 +1,8 @@
 import httpStatus from "http-status";
-import mongoose from "mongoose";
+import mongoose, { Types } from "mongoose";
 import ApiError from "../../modules/errors/ApiError";
 import { IOptions, QueryResult } from "../../modules/paginate/paginate";
+import crypto from "../../packages/crypto";
 import {
     IUser,
     IUserDoc,
@@ -47,14 +48,15 @@ export const queryUsers = async (
     return users;
 };
 
-export const getUserById = async (id: mongoose.Types.ObjectId): Promise<IUserDoc | null> =>
-    User.findById(id);
+export const getUserById = async (id: Types.ObjectId): Promise<IUserDoc | null> => {
+    return User.findById(id);
+};
 
 export const getUserByEmail = async (email: string): Promise<IUserDoc | null> =>
     User.findOne({ email });
 
 export const updateUserById = async (
-    userId: mongoose.Types.ObjectId,
+    userId: Types.ObjectId,
     updateBody: UpdateUserBody
 ): Promise<IUserDoc | null> => {
     const user = await getUserById(userId);
@@ -65,6 +67,24 @@ export const updateUserById = async (
         throw new ApiError(httpStatus.BAD_REQUEST, "Email already taken");
     }
     Object.assign(user, updateBody);
+    await user.save();
+    return user;
+};
+
+export const changePassword = async (
+    userId: Types.ObjectId,
+    currentPassword: string,
+    newPassword: string
+): Promise<IUserDoc | null> => {
+    const user = await getUserById(userId);
+    if (!user) {
+        throw new ApiError(httpStatus.NOT_FOUND, "User not found");
+    }
+    const isCorrectPassword = await crypto.compare(currentPassword, user.password);
+    if (!isCorrectPassword) {
+        throw new ApiError(httpStatus.BAD_REQUEST, "Wrong Password");
+    }
+    user.password = newPassword;
     await user.save();
     return user;
 };

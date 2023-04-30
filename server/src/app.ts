@@ -7,10 +7,10 @@ import httpStatus from "http-status";
 import passport from "passport";
 import xssClean from "xss-clean";
 import config from "./config/config";
-import { jwtStrategy } from "./resources/auth";
 import { ApiError, errorConverter, errorHandler } from "./modules/errors";
 import { morgan } from "./modules/logger";
 import { authLimiter } from "./modules/utils";
+import { jwtStrategy } from "./resources/auth";
 import routes from "./routes/v1";
 
 const app: Express = express();
@@ -34,7 +34,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // sanitize request data
-app.use(xssClean());
+app.use(xssClean() as any);
 app.use(expressMongoSanitize());
 
 // gzip compression

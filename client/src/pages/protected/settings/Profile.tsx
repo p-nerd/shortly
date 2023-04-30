@@ -1,7 +1,7 @@
 import TitleCard from "@components/common/Cards/TitleCard";
 import AccessHistory from "@components/pages/profile/AccessHistory";
 import Preferences from "@components/pages/profile/Preferences/Preferences";
-import SecurityAuthentication from "@components/pages/profile/SecurityAuthentication";
+import SecurityAuthentication from "@components/pages/profile/SecurityAuthentication/SecurityAuthentication";
 import useSetPageTitle from "@hooks/useSetPageTitle";
 
 const Profile = () => {

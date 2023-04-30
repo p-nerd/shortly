@@ -54,6 +54,15 @@ export const updateUserByMe = catchAsync(async (req: Request, res: Response) => 
     return res.send(user);
 });
 
+export const changePasswordByMe = catchAsync(async (req: Request, res: Response) => {
+    const user = await userService.changePassword(
+        req.user._id,
+        req.body.currentPassword,
+        req.body.newPassword
+    );
+    return res.send(user);
+});
+
 export const deleteUser = catchAsync(async (req: Request, res: Response) => {
     if (typeof req.params["userId"] === "string") {
         await userService.deleteUserById(new mongoose.Types.ObjectId(req.params["userId"]));

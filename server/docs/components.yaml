@@ -13,7 +13,7 @@ components:
         role:
           type: string
           enum: [user, admin]
-        otherEmails: 
+        otherEmails:
           type: array
           items:
             type: object
@@ -28,14 +28,14 @@ components:
         email: fake@example.com
         name: fake name
         role: user
-        otherEmails: [{email: fake@example.com, isEmailVerified: false}]
+        otherEmails: [{ email: fake@example.com, isEmailVerified: false }]
 
     Token:
       type: object
       properties:
         token:
           type: string
-        expires: 
+        expires:
           type: string
           format: date-time
       example:
@@ -46,17 +46,17 @@ components:
       type: object
       properties:
         access:
-          $ref: '#/components/schemas/Token'
+          $ref: "#/components/schemas/Token"
         refresh:
-          $ref: '#/components/schemas/Token'
+          $ref: "#/components/schemas/Token"
 
     UserWithTokens:
       type: object
       properties:
         user:
-          $ref: '#/components/schemas/User'
+          $ref: "#/components/schemas/User"
         tokens:
-          $ref: '#/components/schemas/AuthTokens'
+          $ref: "#/components/schemas/AuthTokens"
 
     Error:
       type: object
@@ -72,16 +72,25 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: "#/components/schemas/Error"
           example:
             code: 400
             message: Email already taken
+    WrongPassword:
+      description: Wrong Password
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+          example:
+            code: 400
+            message: Wrong Password
     Unauthorized:
       description: Unauthorized
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: "#/components/schemas/Error"
           example:
             code: 401
             message: Please authenticate
@@ -90,7 +99,7 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: "#/components/schemas/Error"
           example:
             code: 403
             message: Forbidden
@@ -99,7 +108,7 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: "#/components/schemas/Error"
           example:
             code: 404
             message: Not found
