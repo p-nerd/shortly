@@ -1,6 +1,6 @@
 import InputField from "@components/common/Input/InputField";
 import { selectUser } from "@features/auth/authSelector";
-import { useUpdateMeMutation } from "@features/users/usersApi";
+import useUpdateMe from "@hooks/useUpdateMe";
 import toast from "@utils/toast";
 import { useEffect, useState } from "react";
 
@@ -15,13 +15,7 @@ const DisplayName = () => {
         }
     }, [user]);
 
-    const [updateMe, { isLoading, isSuccess, isError, error }] = useUpdateMeMutation();
-
-    useEffect(() => {
-        if (isError) {
-            toast.error(error?.data?.message);
-        }
-    }, [isError]);
+    const { updateMe, isLoading, isSuccess } = useUpdateMe();
 
     useEffect(() => {
         if (isSuccess) {

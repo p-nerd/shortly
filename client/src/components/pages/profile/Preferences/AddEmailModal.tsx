@@ -1,35 +1,13 @@
 import InputField from "@components/common/Input/InputField";
 import { selectOtherEmails } from "@features/auth/authSelector";
-import { useUpdateMeMutation } from "@features/users/usersApi";
-import toast from "@utils/toast";
+import useUpdateMe from "@hooks/useUpdateMe";
 import { useEffect, useState } from "react";
 
 const AddEmailModal = () => {
     const otherEmails = selectOtherEmails();
-
     const [email, setEmail] = useState("");
-
-    const [errorMessage, setErrorMessage] = useState("");
-    const [loading, setLoading] = useState(false);
     const [modalOpen, setModalOpen] = useState(false);
-
-    const [updateMe, { isLoading, isError, error, isSuccess }] = useUpdateMeMutation();
-
-    useEffect(() => {
-        if (errorMessage) {
-            toast.error(errorMessage);
-        }
-    }, [errorMessage]);
-
-    useEffect(() => {
-        if (isError) {
-            setErrorMessage(error.data.message);
-        }
-    }, [isError]);
-
-    useEffect(() => {
-        setLoading(isLoading);
-    }, [isLoading]);
+    const { updateMe, isLoading, isSuccess } = useUpdateMe();
 
     const handleAddEmail = () => {
         if (otherEmails && email) {
@@ -69,33 +47,40 @@ const AddEmailModal = () => {
                                 clicking Save. New email addresses cannot be designated as
                                 primary until they have been verified.
                             </p>
-                            <InputField
-                                label="Email Address"
-                                value={email}
-                                setValue={setEmail}
-                                type="text"
-                            />
+                            <form
+                                onSubmit={e => {
+                                    e.preventDefault();
+                                    handleAddEmail();
+                                }}
+                            >
+                                <InputField
+                                    label="Email Address"
+                                    value={email}
+                                    setValue={setEmail}
+                                    type="text"
+                                />
 
-                            <div className="flex justify-end gap-3">
-                                <div className="modal-action">
-                                    <label
-                                        htmlFor="add-email"
-                                        className="btn-outline btn"
-                                    >
-                                        Cancel
-                                    </label>
+                                <div className="flex justify-end gap-3">
+                                    <div className="modal-action">
+                                        <label
+                                            htmlFor="add-email"
+                                            className="btn-outline btn"
+                                        >
+                                            Cancel
+                                        </label>
+                                    </div>
+                                    <div className="modal-action">
+                                        <button
+                                            type="submit"
+                                            disabled={isLoading}
+                                            // htmlFor="add-email"
+                                            className="btn-primary btn-active btn"
+                                        >
+                                            Save
+                                        </button>
+                                    </div>
                                 </div>
-                                <div className="modal-action">
-                                    <button
-                                        onClick={handleAddEmail}
-                                        disabled={loading}
-                                        // htmlFor="add-email"
-                                        className="btn-primary btn-active btn"
-                                    >
-                                        Save
-                                    </button>
-                                </div>
-                            </div>
+                            </form>
                         </label>
                     </label>
                 </>
